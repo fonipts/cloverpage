@@ -8,7 +8,7 @@ The intention of this tool is to scan the code, API traffic and performance of t
 First you need to create config file in project directory `cloverrc.yaml`
 
 
-Then run this command also
+Then run this command at your terminal
 ```bash
 cloverpage
 ```
