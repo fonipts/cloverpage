@@ -1,6 +1,6 @@
 
 module AppDefaultVaribles
-  @default_filename="sortcode"
+  @default_filename="cloverrc"
   @default_extname="yaml"
   @default_filename_with_extname="%s.%s"
 

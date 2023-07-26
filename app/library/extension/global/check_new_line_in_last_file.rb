@@ -21,7 +21,8 @@ class CheckNewLineInCode < CodeScanInterface
          for line in @ext_content
             msg = line
          end
-         if msg.strip != ""
+         reg_a = /\n/m
+         if  !msg.match(reg_a)
             msg_data = "file `%s` has no newline found"% [@ext_name]
             @ext_log.append(msg_data)
          end
