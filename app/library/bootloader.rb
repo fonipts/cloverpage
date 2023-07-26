@@ -1,4 +1,4 @@
-require_relative "./initiate_control.rb"
+require 'yaml'
 require_relative "../config/message.rb"
 require_relative "./support/verify_content.rb"
 require_relative "./support/execute_content.rb"
