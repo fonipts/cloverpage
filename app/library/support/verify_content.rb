@@ -1,16 +1,16 @@
 require_relative "../../config/app.rb"
+
 class VerifyContent
 
     def initialize(init)
         @init_config = init
-        
         @is_error = false
         @error_message = ''
         @list_project = []
     end
 
     def InitConfig()
-        checkProject()   
+        checkProject()
     end
     def isError()
         return @is_error
@@ -45,7 +45,7 @@ class VerifyContent
                         @is_error = true
                         @error_message = 'In list of project the `name` is missing'
                         break
-                         
+
                     end
                     if !x['project'].has_key?("type")
                         @is_error = true
@@ -56,22 +56,20 @@ class VerifyContent
                             @is_error = true
                             @error_message = 'In list of project type `%s.` is missing'% [ x['project']['type'] ]
                             break
-                        end        
-                    end                         
+                        end
+                    end
                     if !x['project'].has_key?("action")
                         @is_error = true
                         @error_message = 'In list of project the `action` is missing'
                         break
-                    end 
-                end    
+                    end
+                end
 
                 if !@is_error
                     @list_project.append(x)
-                end    
+                end
             end
         end
-        
+
     end
-
 end
-

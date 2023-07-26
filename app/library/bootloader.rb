@@ -12,15 +12,14 @@ class Bootloader
         @is_error = false
     end
     def getContentOfYaml()
-        
+
         file = File.open(@default_file)
         return YAML.load(file.read)
-        
+
     end
     def loader()
         if !@is_error
             puts "my start"
-            
             begin
 
                 data = getContentOfYaml()
@@ -29,20 +28,19 @@ class Bootloader
                 if verify.isError()
                     raise ExceptionConfigFile.new(verify.errorMessage())
                 end
-                logs = [];     
+                logs = [];
                 executeProject(verify.getListProject(), logs)
-                if logs.count() == 0 
+                if logs.count() == 0
                     puts "No error found"
                 else
                     puts logs.join("\n")
                     system("command", exception: true) or exit
-                end    
+                end
             rescue Psych::SyntaxError
                 puts ErrorVaribles.invalid_yaml_format
             rescue ExceptionConfigFile =>e
                 puts e.message
             end
-        end    
+        end
     end
 end
-

@@ -21,7 +21,7 @@ module LangugeExt
       "check_trailing_space": CheckTrailingSpaceInCode.new,
       "max_newline_limit": MaxNewlineLimitInCode.new
     }
-    
+
     @initial_class_codescan = {
       "python": {}
     }
@@ -29,7 +29,7 @@ module LangugeExt
     def self.langExtList
       return @langExtList
     end
-   
+
     def self.global_class_codescan
       return @global_class_codescan
     end

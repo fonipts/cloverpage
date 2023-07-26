@@ -11,7 +11,7 @@ if File.file?(config_filename)
 
     loader = Bootloader.new(config_filename, ARGV);
     loader.loader()
-    
+
 else
 
     puts ErrorVaribles.config_file_notfund

@@ -20,7 +20,7 @@ module AppDefaultVaribles
   def self.default_filename_with_extname
     return @default_filename_with_extname%[@default_filename, @default_extname]
   end
-  
+
   def self.type_codescan
     return @type_codescan
   end
