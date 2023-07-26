@@ -1,6 +1,8 @@
 require_relative "../library/extension/global/file_line_limit.rb"
 require_relative "../library/extension/global/check_new_line_in_last_file.rb"
- 
+require_relative "../library/extension/global/check_trailing_space.rb"
+require_relative "../library/extension/global/max_newline_limit.rb"
+
 module LangugeExt
     @langExtList={
         "golang": "go",
@@ -15,9 +17,11 @@ module LangugeExt
 
     @global_class_codescan = {
       "file_line_limit": FileLineLimit.new,
-      "check_new_line_in_last_file": CheckNewLineInCode.new
+      "check_new_line_in_last_file": CheckNewLineInCode.new,
+      "check_trailing_space": CheckTrailingSpaceInCode.new,
+      "max_newline_limit": MaxNewlineLimitInCode.new
     }
-
+    
     @initial_class_codescan = {
       "python": {}
     }

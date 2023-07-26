@@ -1,4 +1,5 @@
 require_relative "../../interface/code_scan.rb"
+
 class FileLineLimit < CodeScanInterface
     
    def initialize()
@@ -28,4 +29,3 @@ class FileLineLimit < CodeScanInterface
 
    end  
 end
-
