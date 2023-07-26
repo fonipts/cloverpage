@@ -2,7 +2,7 @@
 ![Cloverpage version][ruby-image]
 
 ## Introduction
-The intention of this tool is to scan the code, API traffic and performance of the Web. To have a synchronize tool across different languge and platform, that easily maintain bu enthusiast at heart.
+The intention of this tool is to scan the code, API traffic and performance of the Web. To have a synchronization tool across different language and platform, that easily maintain bu enthusiast at heart.
 
 ## Usage
 First you need to create config file in project directory `cloverrc.yaml`

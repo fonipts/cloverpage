@@ -29,7 +29,7 @@ class MaxNewlineLimitInCode < CodeScanInterface
          if line.strip == ""
             newline_count+=1
             if newline_count>@ext_config
-               template_msg ="file `%s` found %s or more newline at line code %s"% [@ext_name,@ext_config,count]
+               template_msg ="file `%s` found %s or more newline at line code %s"% [@ext_name,@ext_config, count]
                @ext_log.append(template_msg)
                @is_error = true
                @clone_file_data.delete_at(count-1)
