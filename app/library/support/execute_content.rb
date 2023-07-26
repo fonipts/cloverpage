@@ -53,18 +53,36 @@ def utilCodescan(list, clone_data, logs)
                     list_content.append(line)
                 end
                 f.close
+                clone_file_data = list_content.clone
                 for configValue in project_action
                     if LangugeExt.global_class_codescan.key?(configValue.keys.first.to_sym)
                         classArg = LangugeExt.global_class_codescan[configValue.keys.first.to_sym]
-                        classArg.setData(x,list_content, configValue.values.first, logs, {})
+                        classArg.setData(x,list_content, configValue.values.first, logs ,clone_file_data, {
+                            "path_join_file": path_join_file,
+                            "file_name": x
+                        })
                         classArg.read
-                        if clone_data['project'].has_key?("is_modify_file")
-                            if clone_data['project']["is_modify_file"]
-                                classArg.write
-                            end
-                        end
+                       # if clone_data['project'].has_key?("is_modify_file")
+                      #      if clone_data['project']["is_modify_file"]
+                       #         classArg.write
+                       #     end
+                       # end
                     end
                 end
+
+
+                if clone_data['project'].has_key?("is_modify_file")
+                    if clone_data['project']["is_modify_file"]
+
+                        File.write(path_join_file,   clone_file_data.join(""), mode: "w")
+                        #puts "----"
+                        #puts clone_file_data.join("")
+                        #puts "===="
+
+                    end
+                end
+
+
             end
         end
 

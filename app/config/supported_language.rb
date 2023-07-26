@@ -8,6 +8,7 @@ module LangugeExt
         "golang": "go",
         "python": "py",
         "ruby": "rb",
+        "dart": "dart",
         "javascript": "js",
         "typescript": "ts",
         "javascriptx": "jsx",

@@ -34,7 +34,7 @@ class Bootloader
                     puts "No error found"
                 else
                     puts logs.join("\n")
-                    system("command", exception: true) or exit
+
                 end
             rescue Psych::SyntaxError
                 puts ErrorVaribles.invalid_yaml_format

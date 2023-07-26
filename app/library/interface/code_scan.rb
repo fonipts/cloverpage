@@ -1,5 +1,5 @@
 class CodeScanInterface
-    def setData(name, content, config,log)
+    def setData(name, content, config,log,clone_file_data)
       raise 'Don\'t forget to implement the eat method'
     end
     def read

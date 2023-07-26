@@ -1,7 +1,7 @@
 require_relative "../../interface/code_scan.rb"
 
 class FileLineLimit < CodeScanInterface
-    
+
    def initialize()
       @ext_name = ''
       @ext_content = []
@@ -10,7 +10,7 @@ class FileLineLimit < CodeScanInterface
       @ext_details = {}
    end
 
-   def setData(name, content, config,log,details)
+   def setData(name, content, config,log,clone_file_data,details)
       @ext_name = name
       @ext_content = content
       @ext_config = config
@@ -23,9 +23,9 @@ class FileLineLimit < CodeScanInterface
       if counter > @ext_config
          msg = "file `%s` has exceed the limit of %s/%s"% [@ext_name, counter, @ext_config]
          @ext_log.append(msg)
-      end   
+      end
    end
    def write
 
-   end  
+   end
 end
