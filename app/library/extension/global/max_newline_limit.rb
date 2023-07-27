@@ -12,27 +12,27 @@ class MaxNewlineLimitInCode < CodeScanInterface
       @valid_line_code = []
    end
 
-   def setData(name, content, config,log,clone_file_data,details)
+   def setData(name, content, config,log)
       @ext_name = name
       @ext_content = content
-      @ext_config = config
+      @ext_config = config.first
       @ext_log = log
-      @ext_details = details
-      @clone_file_data = clone_file_data
+      #@ext_details = details
+      #@clone_file_data = clone_file_data
    end
    def read
 
       count =1
       newline_count =0
       @valid_line_code = []
-      for line in @ext_content
+      for line in @ext_content.getReadLine
          if line.strip == ""
             newline_count+=1
             if newline_count>@ext_config
                template_msg ="file `%s` found %s or more newline at line code %s"% [@ext_name,@ext_config, count]
                @ext_log.append(template_msg)
                @is_error = true
-               @clone_file_data.delete_at(count-1)
+               @ext_content.setDeleteAtReadLine(count-1)
 
             end
          else

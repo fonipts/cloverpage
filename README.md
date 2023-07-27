@@ -14,5 +14,4 @@ cloverpage
 ```
 
 
-
 [ruby-image]: https://img.shields.io/badge/cloverpage-0.5.0-brightgreen

@@ -9,13 +9,11 @@ class CheckTrailingSpaceInCode < CodeScanInterface
       @ext_details = {}
    end
 
-   def setData(name, content, config,log,clone_file_data,details)
+   def setData(name, content, config,log)
       @ext_name = name
       @ext_content = content
-      @ext_config = config
+      @ext_config = config.first
       @ext_log = log
-      @ext_details = details
-      @clone_file_data = clone_file_data
    end
    def read
       if @ext_config
@@ -24,12 +22,14 @@ class CheckTrailingSpaceInCode < CodeScanInterface
          reg_a = /(\s{1,})\n$/
 
          count =1
-         for line in @ext_content
+         getReadLine = @ext_content.getReadLine
+         for line in getReadLine
             msg = line
             count_scan = line.scan(reg_a)
             if count_scan.length >0
 
-               @clone_file_data[count - 1] = @clone_file_data[count - 1].gsub(reg_a,"\n")
+               #@clone_file_data[count - 1] = @clone_file_data[count - 1].gsub(reg_a,"\n")
+               @ext_content.setModifyReadLine( count - 1  , getReadLine[count - 1].gsub(reg_a,"\n"))
                template_msg ="file `%s` trail white space at line %s"% [@ext_name,count]
                @ext_log.append(template_msg)
             end

@@ -2,6 +2,7 @@ require 'yaml'
 require_relative "../config/message.rb"
 require_relative "./support/verify_content.rb"
 require_relative "./support/execute_content.rb"
+require_relative "./support/scan_logs.rb"
 require_relative "./exception/exception_config_file.rb"
 
 class Bootloader
@@ -19,21 +20,29 @@ class Bootloader
     end
     def loader()
         if !@is_error
+            loadScriptTORun()
+        end
+    end
+    def loadScriptTORun()
+
             puts "my start"
             begin
 
                 data = getContentOfYaml()
                 verify = VerifyContent.new(data)
                 verify.InitConfig()
+
                 if verify.isError()
                     raise ExceptionConfigFile.new(verify.errorMessage())
                 end
-                logs = [];
+
+                logs = ScanLogs.new
                 executeProject(verify.getListProject(), logs)
-                if logs.count() == 0
+                getLogs = logs.getLogs
+                if getLogs.count() == 0
                     puts "No error found"
                 else
-                    puts logs.join("\n")
+                    puts getLogs.join("\n")
 
                 end
             rescue Psych::SyntaxError
@@ -41,6 +50,6 @@ class Bootloader
             rescue ExceptionConfigFile =>e
                 puts e.message
             end
-        end
+
     end
 end

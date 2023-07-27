@@ -10,16 +10,15 @@ class FileLineLimit < CodeScanInterface
       @ext_details = {}
    end
 
-   def setData(name, content, config,log,clone_file_data,details)
+   def setData(name, content, config,log)
       @ext_name = name
       @ext_content = content
-      @ext_config = config
+      @ext_config = config.first
       @ext_log = log
-      @ext_details = details
    end
 
    def read
-      counter = @ext_content.count()
+      counter = @ext_content.getReadLine.count()
       if counter > @ext_config
          msg = "file `%s` has exceed the limit of %s/%s"% [@ext_name, counter, @ext_config]
          @ext_log.append(msg)

@@ -1,5 +1,6 @@
 require_relative "../../config/app.rb"
 require_relative "../../config/supported_language.rb"
+require_relative "./file_read.rb"
 
 def executeProject(list, logs)
     if list.count() >0
@@ -44,40 +45,25 @@ def utilCodescan(list, clone_data, logs)
         dir_list = Dir.glob(path_join)
 
         for x in dir_list
-            path_join_file = File.join(app_dir,x)
-            if (File.exists?(path_join_file))
 
-                f = File.open(path_join_file, "r")
-                list_content = []
-                f.each_line do |line|
-                    list_content.append(line)
-                end
-                f.close
-                clone_file_data = list_content.clone
+            file_read = FileRead.new(app_dir,x)
+            if ( file_read.exists )
+                file_read.initReadFile
+
                 for configValue in project_action
                     if LangugeExt.global_class_codescan.key?(configValue.keys.first.to_sym)
                         classArg = LangugeExt.global_class_codescan[configValue.keys.first.to_sym]
-                        classArg.setData(x,list_content, configValue.values.first, logs ,clone_file_data, {
-                            "path_join_file": path_join_file,
-                            "file_name": x
-                        })
+                        classArg.setData(x,file_read, configValue.values, logs )
                         classArg.read
-                       # if clone_data['project'].has_key?("is_modify_file")
-                      #      if clone_data['project']["is_modify_file"]
-                       #         classArg.write
-                       #     end
-                       # end
+
                     end
                 end
 
 
                 if clone_data['project'].has_key?("is_modify_file")
                     if clone_data['project']["is_modify_file"]
+                        file_read.initWriteFile
 
-                        File.write(path_join_file,   clone_file_data.join(""), mode: "w")
-                        #puts "----"
-                        #puts clone_file_data.join("")
-                        #puts "===="
 
                     end
                 end
