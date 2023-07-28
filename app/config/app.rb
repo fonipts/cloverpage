@@ -26,14 +26,17 @@ module AppDefaultVaribles
   def self.type_httprequest
     return @type_httprequest
   end
+
   def self.type_webperformance
     return @type_webperformance
   end
   def self.valid_script_action
+
     return @valid_script_action
   end
   def self.default_version
     return @default_version
   end
+
 end
 

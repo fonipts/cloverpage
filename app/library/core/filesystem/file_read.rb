@@ -3,8 +3,7 @@ class FileRead
     def initialize(app_dir, filename)
         @list_content = []
         @clone_list_content = []
-        @list_index_delete = {}
-        @list_index_delete_arr = []
+        @list_index_delete = []
         @path_join_file = File.join(app_dir, filename)
         @filename = filename
     end
@@ -25,20 +24,8 @@ class FileRead
         reference = 0
         counter = -1
         line_counter = 0
-        #?@list_index_delete.each do |key ,value|
-
-        #?    for n in 0..value
-        #?        #@clone_list_content.delete_at( key - reference)
-        #?        puts @clone_list_content.delete_at( key - reference)
-        #?        puts "%s:%s  = %s" %[key,reference, n]
-        #?    end
-        #?    #puts key - reference
-        #?    #puts "---"
-        #?    reference += ((value+1) + counter)
-        #?    counter+=1
-        #?end
         row_count =0
-        for k in @list_index_delete_arr
+        for k in @list_index_delete
             if counter + 1 == k
                 counter +=1
 
@@ -67,15 +54,9 @@ class FileRead
         @clone_list_content.append(content)
     end
     def setDeleteAtReadLine(index)
-        counter = 1
-        if @list_index_delete.key?(index)
-            counter = @list_index_delete[index] +1
-        end
-        @list_index_delete[index] = counter
-        @list_index_delete_arr.append(index)
-       # @clone_list_content.delete_at(index)
-         #@list_index_delete.append(index)
-     end
+
+        @list_index_delete.append(index)
+    end
     def exists
         return File.exists?(@path_join_file)
     end

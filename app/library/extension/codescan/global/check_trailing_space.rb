@@ -27,7 +27,6 @@ class CheckTrailingSpaceInCode < CodeScanInterface
             count_scan = line.scan(reg_a)
             if count_scan.length >0
 
-               #@clone_file_data[count - 1] = @clone_file_data[count - 1].gsub(reg_a,"\n")
                @ext_content.setModifyReadLine( count - 1  , getReadLine[count - 1].gsub(reg_a,"\n"))
                template_msg ="file `%s` trail white space at line %s"% [@ext_name,count]
                @ext_log.append(template_msg)
@@ -38,6 +37,5 @@ class CheckTrailingSpaceInCode < CodeScanInterface
 
       end
    end
-
 
 end

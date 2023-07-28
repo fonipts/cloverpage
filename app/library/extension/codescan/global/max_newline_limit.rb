@@ -45,5 +45,4 @@ class MaxNewlineLimitInCode < CodeScanInterface
 
    end
 
-
 end
