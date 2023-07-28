@@ -17,8 +17,8 @@ def executeProject(list, logs)
             utilCodescan(list, clone_data, logs)
         end
 
-        if data_project_type == AppDefaultVaribles.type_apirequest
-            puts "apirequest [%s]" % [ clone_data['project']['name']]
+        if data_project_type == AppDefaultVaribles.type_httprequest
+            puts "httprequest [%s]" % [ clone_data['project']['name']]
             utilApirequest(list, clone_data, logs)
         end
 

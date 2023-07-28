@@ -1,4 +1,4 @@
-require_relative "../../config/app.rb"
+require_relative "../../../config/app.rb"
 
 class VerifyContent
 

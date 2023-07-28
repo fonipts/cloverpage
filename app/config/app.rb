@@ -6,7 +6,7 @@ module AppDefaultVaribles
   @default_filename_with_extname="%s.%s"
 
   @type_codescan = "codescan"
-  @type_apirequest = "apirequest"
+  @type_httprequest = "httprequest"
   @type_webperformance = "webperformance"
   @valid_script_action = [@type_codescan, @type_apirequest, @type_webperformance]
 
@@ -23,8 +23,8 @@ module AppDefaultVaribles
   def self.type_codescan
     return @type_codescan
   end
-  def self.type_apirequest
-    return @type_apirequest
+  def self.type_httprequest
+    return @type_httprequest
   end
   def self.type_webperformance
     return @type_webperformance

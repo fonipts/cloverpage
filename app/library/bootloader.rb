@@ -1,6 +1,6 @@
 require 'yaml'
 require_relative "../config/message.rb"
-require_relative "./core/verify_content.rb"
+require_relative "./core/schema/verify_content.rb"
 require_relative "./core/execute_content.rb"
 require_relative "./core/filesystem/scan_logs.rb"
 require_relative "./exception/exception_config_file.rb"
