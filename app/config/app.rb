@@ -1,9 +1,9 @@
 
 module AppDefaultVaribles
+  @default_version="0.5.0"
   @default_filename="cloverrc"
   @default_extname="yaml"
   @default_filename_with_extname="%s.%s"
-
 
   @type_codescan = "codescan"
   @type_apirequest = "apirequest"
@@ -32,6 +32,9 @@ module AppDefaultVaribles
   end
   def self.valid_script_action
     return @valid_script_action
+  end
+  def self.default_version
+    return @default_version
   end
 end
 

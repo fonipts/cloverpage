@@ -1,6 +1,6 @@
 require_relative "../../config/app.rb"
 require_relative "../../config/supported_language.rb"
-require_relative "./file_read.rb"
+require_relative "./filesystem/file_read.rb"
 
 def executeProject(list, logs)
     if list.count() >0
@@ -30,7 +30,6 @@ def executeProject(list, logs)
     end
 end
 
-
 def utilCodescan(list, clone_data, logs)
     project_lang = clone_data['project']['lang']
     project_action = clone_data['project']['action']
@@ -59,15 +58,12 @@ def utilCodescan(list, clone_data, logs)
                     end
                 end
 
-
                 if clone_data['project'].has_key?("is_modify_file")
                     if clone_data['project']["is_modify_file"]
                         file_read.initWriteFile
 
-
                     end
                 end
-
 
             end
         end

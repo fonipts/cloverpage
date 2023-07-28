@@ -1,4 +1,4 @@
-require_relative "../../interface/code_scan.rb"
+require_relative "../../../interface/code_scan.rb"
 
 class CheckNewLineInCode < CodeScanInterface
 
