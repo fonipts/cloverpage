@@ -4,7 +4,7 @@ class CheckNewLineInCode < CodeScanInterface
 
    def initialize()
       @ext_name = ''
-      @ext_content = []
+      @ext_content = nil
       @ext_config = nil
       @ext_log = []
    end
@@ -27,7 +27,7 @@ class CheckNewLineInCode < CodeScanInterface
             msg_data = "file `%s` has no newline found"% [@ext_name]
             @is_error = true
             @ext_log.append(msg_data)
-            @clone_file_data.setAppendReadLine("\n")
+            @ext_content.setAppendReadLine("\n")
          end
       end
    end

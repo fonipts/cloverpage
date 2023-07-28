@@ -52,6 +52,7 @@ def utilCodescan(list, clone_data, logs)
                 for configValue in project_action
                     if LangugeExt.global_class_codescan.key?(configValue.keys.first.to_sym)
                         classArg = LangugeExt.global_class_codescan[configValue.keys.first.to_sym]
+                        #puts file_read
                         classArg.setData(x,file_read, configValue.values, logs )
                         classArg.read
 
