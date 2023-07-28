@@ -7,8 +7,6 @@ class CheckNewLineInCode < CodeScanInterface
       @ext_content = []
       @ext_config = nil
       @ext_log = []
-      @ext_details = {}
-      @is_error = false
    end
 
    def setData(name, content, config,log)
@@ -31,12 +29,6 @@ class CheckNewLineInCode < CodeScanInterface
             @ext_log.append(msg_data)
             @clone_file_data.setAppendReadLine("\n")
          end
-      end
-   end
-
-   def write
-      if @is_error
-
       end
    end
 

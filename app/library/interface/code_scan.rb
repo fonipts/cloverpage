@@ -5,7 +5,5 @@ class CodeScanInterface
     def read
       raise 'Don\'t forget to implement the eat method'
     end
-    def write
-      raise 'Don\'t forget to implement the eat method'
-    end
+
 end

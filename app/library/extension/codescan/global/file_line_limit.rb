@@ -7,7 +7,6 @@ class FileLineLimit < CodeScanInterface
       @ext_content = []
       @ext_config = nil
       @ext_log = []
-      @ext_details = {}
    end
 
    def setData(name, content, config,log)

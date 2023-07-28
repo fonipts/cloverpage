@@ -17,8 +17,6 @@ class MaxNewlineLimitInCode < CodeScanInterface
       @ext_content = content
       @ext_config = config.first
       @ext_log = log
-      #@ext_details = details
-      #@clone_file_data = clone_file_data
    end
    def read
 
