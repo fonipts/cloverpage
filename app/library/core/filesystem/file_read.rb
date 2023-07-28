@@ -22,15 +22,20 @@ class FileRead
     end
     def initWriteFile
         reference = 0
+        counter = 0
         @list_index_delete.each do |key ,value|
 
             for n in 0..value
-             
                 @clone_list_content.delete_at( key - reference)
+           #     puts @clone_list_content.delete_at( key - reference)
+          #      puts "%s:%s  = %s" %[key,reference, n]
             end
-            reference = value
+         #   puts key - reference
+         #   puts "---"
+            reference += (value + counter)
+            counter+=1
         end
-
+        #puts @clone_list_content.join("")
         File.write(@path_join_file,   @clone_list_content.join(""), mode: "w")
     end
     def getReadLine

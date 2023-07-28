@@ -10,7 +10,6 @@ module AppDefaultVaribles
   @type_webperformance = "webperformance"
   @valid_script_action = [@type_codescan, @type_apirequest, @type_webperformance]
 
-
   def self.default_filename
     return @default_filename
   end
