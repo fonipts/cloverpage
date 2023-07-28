@@ -1,6 +1,7 @@
 require_relative "../../config/app.rb"
 require_relative "../../config/supported_language.rb"
 require_relative "./filesystem/file_read.rb"
+require_relative "./filesystem/glob.rb"
 
 def executeProject(list, logs)
     if list.count() >0
@@ -40,10 +41,10 @@ def utilCodescan(list, clone_data, logs)
     else
         app_dir = Dir.pwd
         project_file = clone_data['project']['files'].first().clone
-        path_join = "%s.%s"% [project_file, LangugeExt.langExtList[project_lang.to_sym]]
-        dir_list = Dir.glob(path_join)
 
-        for x in dir_list
+        glob = Glob.new(project_file, LangugeExt.langExtList[project_lang.to_sym])
+
+        for x in glob.readFiles
 
             file_read = FileRead.new(app_dir,x)
             if ( file_read.exists )
@@ -52,7 +53,6 @@ def utilCodescan(list, clone_data, logs)
                 for configValue in project_action
                     if LangugeExt.global_class_codescan.key?(configValue.keys.first.to_sym)
                         classArg = LangugeExt.global_class_codescan[configValue.keys.first.to_sym]
-                        #puts file_read
                         classArg.setData(x,file_read, configValue.values, logs )
                         classArg.read
 
