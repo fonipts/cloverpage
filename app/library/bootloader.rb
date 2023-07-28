@@ -20,10 +20,10 @@ class Bootloader
     end
     def loader()
         if !@is_error
-            loadScriptTORun()
+            loadScriptToRun()
         end
     end
-    def loadScriptTORun()
+    def loadScriptToRun()
 
             puts "my start"
             begin

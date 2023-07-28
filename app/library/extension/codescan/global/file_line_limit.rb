@@ -23,7 +23,5 @@ class FileLineLimit < CodeScanInterface
          @ext_log.append(msg)
       end
    end
-   def write
 
-   end
 end

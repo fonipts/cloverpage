@@ -40,7 +40,7 @@ class MaxNewlineLimitInCode < CodeScanInterface
 
                @ext_log.append(template_msg)
                @is_error = true
-               @ext_content.setDeleteAtReadLine(reference - @ext_config)
+               @ext_content.setDeleteAtReadLine(reference- @ext_config )
             else
                reference = -1
             end
@@ -54,10 +54,6 @@ class MaxNewlineLimitInCode < CodeScanInterface
 
    end
 
-   def write
-      if @is_error
 
-      end
-   end
 
 end

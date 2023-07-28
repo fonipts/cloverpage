@@ -11,9 +11,9 @@ scans:
       - check_trailing_space : true
       - max_newline_limit : 2,
      files:
-    # - 'app/config/*'     
-     - 'app/*'
-     - 'app/*/*'
-     - 'app/*/*/*'
-     - 'app/*/*/*/*'
+     - 'app/config/*'     
+    # - 'app/*'
+    # - 'app/*/*'
+    # - 'app/*/*/*'
+    # - 'app/*/*/*/*'
 

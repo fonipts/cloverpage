@@ -27,12 +27,12 @@ class FileRead
 
             for n in 0..value
                 @clone_list_content.delete_at( key - reference)
-           #     puts @clone_list_content.delete_at( key - reference)
-          #      puts "%s:%s  = %s" %[key,reference, n]
+                #puts @clone_list_content.delete_at( key - reference)
+                #puts "%s:%s  = %s" %[key,reference, n]
             end
-         #   puts key - reference
-         #   puts "---"
-            reference += (value + counter)
+            #puts key - reference
+            #puts "---"
+            reference += ((value+1) + counter)
             counter+=1
         end
         #puts @clone_list_content.join("")

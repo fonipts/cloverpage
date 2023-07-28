@@ -39,8 +39,5 @@ class CheckTrailingSpaceInCode < CodeScanInterface
       end
    end
 
-   def write
-
-   end
 
 end
