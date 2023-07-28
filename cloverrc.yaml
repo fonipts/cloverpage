@@ -1,7 +1,7 @@
 name: Hello world
 scans:
   - project:
-     name: ruby
+     name: scan your code for quality
      type: codescan
      lang: ruby
      is_modify_file: true
@@ -16,4 +16,5 @@ scans:
      - 'app/*/*'
      - 'app/*/*/*'
      - 'app/*/*/*/*'
+     - 'app/*/*/*/*/*' 
 
