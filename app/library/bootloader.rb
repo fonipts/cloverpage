@@ -1,6 +1,7 @@
 require 'yaml'
 require_relative "../config/message.rb"
 require_relative "./core/schema/verify_content.rb"
+require_relative "./core/schema/command_content.rb"
 require_relative "./core/execute_content.rb"
 require_relative "./core/filesystem/scan_logs.rb"
 require_relative "./exception/exception_config_file.rb"
@@ -25,10 +26,18 @@ class Bootloader
     end
     def loadScriptToRun()
 
-            puts "my start"
+            puts "Welcome in cloverpage"
             begin
 
                 data = getContentOfYaml()
+
+                verifyCommand = CommandContent.new(@default_arg_list)
+                verifyCommand.InitConfig()
+
+                if verifyCommand.isError()
+                    raise ExceptionConfigFile.new(verifyCommand.errorMessage())
+                end
+
                 verify = VerifyContent.new(data)
                 verify.InitConfig()
 
