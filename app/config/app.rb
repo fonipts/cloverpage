@@ -1,4 +1,3 @@
-
 module AppDefaultVaribles
   @default_version="0.5.0"
   @default_filename="cloverrc"
