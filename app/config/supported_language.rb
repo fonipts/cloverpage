@@ -7,6 +7,7 @@ module LangugeExt
     @langExtList={
         "golang": "go",
         "python": "py",
+        "html": "html",
         "ruby": "rb",
         "dart": "dart",
         "javascript": "js",
