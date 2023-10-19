@@ -5,13 +5,13 @@
 The intention of this tool is to scan the code, API traffic and performance of the Web. To have a synchronization tool across different language and platform, that easily maintain by enthusiast at heart.
 
 ## Usage
-First you need to create config file in project directory `cloverrc.yaml`
+First you need to create config file in project directory `cloverrc.yaml` and copy what we had in this repository.
 
 
 Then run this command at your terminal
 ```bash
-cloverpage
+cloverpage execute
 ```
 
 
-[ruby-image]: https://img.shields.io/badge/cloverpage-0.5.0-brightgreen
+[ruby-image]: https://img.shields.io/badge/cloverpage-0.0.1-brightgreen
