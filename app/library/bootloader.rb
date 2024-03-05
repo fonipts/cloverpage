@@ -46,7 +46,7 @@ class Bootloader
                 classArg.execute()
 
             rescue Psych::SyntaxError
-                puts ErrorVaribles.invalid_yaml_format
+                puts ErrorVaribles.invalid_yaml_format.red
             rescue ExceptionConfigFile =>e
                 puts e.message.red
             end
