@@ -2,6 +2,7 @@ require_relative "../library/extension/codescan/global/file_line_limit.rb"
 require_relative "../library/extension/codescan/global/check_new_line_in_last_file.rb"
 require_relative "../library/extension/codescan/global/check_trailing_space.rb"
 require_relative "../library/extension/codescan/global/max_newline_limit.rb"
+require_relative "../library/extension/codescan/global/check_extra_space.rb"
 
 module LangugeExt
     @langExtList={
@@ -20,7 +21,8 @@ module LangugeExt
       "file_line_limit": FileLineLimit.new,
       "check_new_line_in_last_file": CheckNewLineInCode.new,
       "check_trailing_space": CheckTrailingSpaceInCode.new,
-      "max_newline_limit": MaxNewlineLimitInCode.new
+      "max_newline_limit": MaxNewlineLimitInCode.new,
+      "check_extra_space": CheckExtraSpaceInCode.new
     }
 
     @initial_class_codescan = {

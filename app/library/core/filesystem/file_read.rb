@@ -35,13 +35,10 @@ class FileRead
                 counter = k
             end
             row_count += 1
-            #puts "%s : %s  = %s  - %s "% [k,counter , reference , line_counter]
-            #puts @clone_list_content.delete_at( reference - line_counter)
+
             @clone_list_content.delete_at( reference - line_counter)
         end
-        #if counter>0
-          #puts @clone_list_content.join("")
-        #end
+
         File.write(@path_join_file,   @clone_list_content.join(""), mode: "w")
     end
     def getReadLine

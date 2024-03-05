@@ -1,3 +1,4 @@
 source "https://rubygems.org"
 
-gem install rubocop
+gem "rubocop"
+gem "colorize"

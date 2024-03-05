@@ -1,22 +1,32 @@
 require 'yaml'
+require 'colorize'
+
+require_relative "../config/custom_command.rb"
 require_relative "../config/message.rb"
-require_relative "./core/schema/verify_content.rb"
-require_relative "./core/schema/command_content.rb"
-require_relative "./core/execute_content.rb"
-require_relative "./core/filesystem/scan_logs.rb"
+
 require_relative "./exception/exception_config_file.rb"
 
 class Bootloader
 
-    def initialize(file, arg_list)
-        @default_file = file
+    def initialize(arg_list)
         @default_arg_list = arg_list
         @is_error = false
+        @command_key = ""
+        @command_list = []
     end
-    def getContentOfYaml()
+    def verifyCommand()
 
-        file = File.open(@default_file)
-        return YAML.load(file.read)
+        if @default_arg_list.count() == 0
+            raise ExceptionConfigFile.new("Empty command, please specify your command or run `help`")
+        end
+        @command_key = @default_arg_list[0].to_sym
+        raw_command_list = @default_arg_list.clone
+
+        @command_list = raw_command_list[1..-1]
+
+        if !CustomCommand.global_list_command.key?(@command_key)
+            raise ExceptionConfigFile.new("No command found at `"+@command_key.to_s+"` or run `help` to see available command")
+        end
 
     end
     def loader()
@@ -27,37 +37,18 @@ class Bootloader
     def loadScriptToRun()
 
             puts "Welcome in cloverpage"
+
             begin
+                verifyCommand()
 
-                data = getContentOfYaml()
+                classArg = CustomCommand.global_list_command[@command_key]
+                classArg.setCommandVariable(@command_list)
+                classArg.execute()
 
-                verifyCommand = CommandContent.new(@default_arg_list)
-                verifyCommand.InitConfig()
-
-                if verifyCommand.isError()
-                    raise ExceptionConfigFile.new(verifyCommand.errorMessage())
-                end
-
-                verify = VerifyContent.new(data)
-                verify.InitConfig()
-
-                if verify.isError()
-                    raise ExceptionConfigFile.new(verify.errorMessage())
-                end
-
-                logs = ScanLogs.new
-                executeProject(verify.getListProject(), logs)
-                getLogs = logs.getLogs
-                if getLogs.count() == 0
-                    puts "No error found"
-                else
-                    puts getLogs.join("\n")
-
-                end
             rescue Psych::SyntaxError
                 puts ErrorVaribles.invalid_yaml_format
             rescue ExceptionConfigFile =>e
-                puts e.message
+                puts e.message.red
             end
 
     end

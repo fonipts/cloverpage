@@ -3,7 +3,7 @@ require_relative "../../config/supported_language.rb"
 require_relative "./filesystem/file_read.rb"
 require_relative "./filesystem/glob.rb"
 
-def executeProject(list, logs)
+def executeProject(list,is_modify, logs)
     if list.count() >0
 
         clone_data = list.first().clone
@@ -15,23 +15,23 @@ def executeProject(list, logs)
 
         if data_project_type == AppDefaultVaribles.type_codescan
             puts "codescan [%s]" % [ clone_data['project']['name']]
-            utilCodescan(list, clone_data, logs)
+            utilCodescan(list,is_modify,  clone_data, logs)
         end
 
         if data_project_type == AppDefaultVaribles.type_httprequest
             puts "httprequest [%s]" % [ clone_data['project']['name']]
-            utilApirequest(list, clone_data, logs)
+            utilApirequest(list,is_modify, clone_data, logs)
         end
 
         if data_project_type == AppDefaultVaribles.type_webperformance
             puts "webperformance [%s]" % [ clone_data['project']['name']]
-            utilWebperformance(list, clone_data, logs)
+            utilWebperformance(list,is_modify, clone_data, logs)
         end
 
     end
 end
 
-def utilCodescan(list, clone_data, logs)
+def utilCodescan(list,is_modify, clone_data, logs)
     project_lang = clone_data['project']['lang']
     project_action = clone_data['project']['action']
 
@@ -59,11 +59,10 @@ def utilCodescan(list, clone_data, logs)
                     end
                 end
 
-                if clone_data['project'].has_key?("is_modify_file")
-                    if clone_data['project']["is_modify_file"]
+                if is_modify
+
                         file_read.initWriteFile
 
-                    end
                 end
 
             end
@@ -73,20 +72,20 @@ def utilCodescan(list, clone_data, logs)
     end
 
     if clone_data['project']['files'].count() > 0
-        utilCodescan(list, clone_data,logs)
+        utilCodescan(list,is_modify, clone_data,logs)
     else
-        executeProject(list,logs)
+        executeProject(list,is_modify,logs)
     end
 
 end
 
-def utilApirequest(list, clone_data, logs)
+def utilApirequest(list,is_modify, clone_data, logs)
 
     puts "This feature still ongoing"
-    executeProject(list, logs)
+    executeProject(list,is_modify, logs)
 end
 
-def utilWebperformance(list, clone_data, logs)
+def utilWebperformance(list,is_modify, clone_data, logs)
     puts "This feature still ongoing"
-    executeProject(list,logs)
+    executeProject(list,is_modify,logs)
 end
