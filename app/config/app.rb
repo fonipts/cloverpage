@@ -1,41 +1,43 @@
 module AppDefaultVaribles
-  @default_version="0.5.0"
-  @default_filename="cloverrc"
-  @default_extname="yaml"
-  @default_filename_with_extname="%s.%s"
+  @default_version = '0.5.0'
+  @default_filename = 'cloverrc'
+  @default_extname = 'yaml'
+  @default_filename_with_extname = '%s.%s'
 
-  @type_codescan = "codescan"
-  @type_httprequest = "httprequest"
-  @type_webperformance = "webperformance"
-  @valid_script_action = [@type_codescan, @type_apirequest, @type_webperformance]
+  @type_codescan = 'codescan'
+  @type_httprequest = 'httprequest'
+  @type_formatscan = 'formatscan'
+  @valid_script_action = [@type_codescan, @type_apirequest, @type_formatscan]
 
   def self.default_filename
-    return @default_filename
+    @default_filename
   end
+
   def self.default_extname
-    return @default_extname
+    @default_extname
   end
+
   def self.default_filename_with_extname
-    return @default_filename_with_extname% [@default_filename, @default_extname]
+    format(@default_filename_with_extname, @default_filename, @default_extname)
   end
 
   def self.type_codescan
-    return @type_codescan
+    @type_codescan
   end
+
   def self.type_httprequest
-    return @type_httprequest
+    @type_httprequest
   end
 
-  def self.type_webperformance
-    return @type_webperformance
+  def self.type_formatscan
+    @type_formatscan
   end
+
   def self.valid_script_action
-
-    return @valid_script_action
+    @valid_script_action
   end
+
   def self.default_version
-    return @default_version
+    @default_version
   end
-
 end
-

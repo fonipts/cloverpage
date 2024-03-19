@@ -1,7 +1,6 @@
-require_relative "./library/bootloader.rb"
+require_relative './library/bootloader'
 
 require 'fileutils'
 
-loader = Bootloader.new(ARGV);
-loader.loader()
-
+loader = Bootloader.new(ARGV)
+loader.loader

@@ -1,5 +1,4 @@
 class CommandInitiateInterface
-
   def execute
     raise 'Don\'t forget to implement the eat method'
   end
@@ -8,8 +7,7 @@ class CommandInitiateInterface
     raise 'Don\'t forget to implement the eat method'
   end
 
-  def setCommandVariable(cmd)
+  def setCommandVariable(_cmd)
     raise 'Don\'t forget to implement the eat method'
   end
-
 end

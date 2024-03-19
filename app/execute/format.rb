@@ -10,7 +10,7 @@ require 'fileutils'
 require 'colorize'
 require 'yaml'
 
-class LintCommand < CommandInitiateInterface
+class FormatCommand < CommandInitiateInterface
   def initialize
     @command_list = []
   end
@@ -22,7 +22,7 @@ class LintCommand < CommandInitiateInterface
     if File.file?(config_filename)
       file = File.open(config_filename)
       data = YAML.load(file.read)
-      lintExecute(data)
+      formatExecute(data)
 
     else
 
@@ -32,7 +32,7 @@ class LintCommand < CommandInitiateInterface
   end
 
   def getDescription
-    'To execute linter in your workspace'
+    'To format your workspace'
   end
 
   def setCommandVariable(cmd)
@@ -41,7 +41,7 @@ class LintCommand < CommandInitiateInterface
 
   private
 
-  def lintExecute(data)
+  def formatExecute(data)
     verify = VerifyContent.new(data)
     verify.InitConfig()
 
