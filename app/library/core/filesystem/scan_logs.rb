@@ -7,7 +7,7 @@ class ScanLogs
     @logs.append(data)
   end
 
-  def getLogs
+  def logs
     @logs
   end
 end

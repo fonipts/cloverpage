@@ -2,3 +2,6 @@ Documentation:
   Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false  
+Lint/MissingSuper:
+  Exclude:
+    - 'app/**/**/*'  

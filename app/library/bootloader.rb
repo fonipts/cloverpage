@@ -34,9 +34,9 @@ class Bootloader
     @get_config_api = YAML.load(file.read)
 
     verify = VerifyContent.new(@get_config_api)
-    verify.InitConfig()
+    verify.init_config()
 
-    raise ExceptionConfigFile.new(verify.errorMessage) if verify.isError
+    raise ExceptionConfigFile.new(verify.error_message) if verify.is_error
 
     @command_list = raw_command_list[1..-1]
 
@@ -48,17 +48,17 @@ class Bootloader
   def loader
     return if @is_error
 
-    loadScriptToRun
+    load_script_to_run
   end
 
-  def loadScriptToRun
+  def load_script_to_run
     puts 'Welcome in cloverpage'
 
     begin
       verify_command
 
       classArg = CustomCommand.global_list_command[@command_key]
-      classArg.set_variable(@command_list, @get_config_api)
+      classArg.variable(@command_list, @get_config_api)
       classArg.execute
     rescue Psych::SyntaxError
       puts ErrorVaribles.invalid_yaml_format.red

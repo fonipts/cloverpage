@@ -62,7 +62,7 @@ class ReviewProject
       file_read = FileRead.new(file)
       files.shift
 
-      file_read.initReadFile
+      file_read.init_read_file
       countr = 1
       for key, value in @global_class
 

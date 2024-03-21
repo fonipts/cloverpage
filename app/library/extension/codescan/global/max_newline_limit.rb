@@ -20,7 +20,7 @@ class MaxNewlineLimitInCode < CodeScanInterface
 
     newline_count = 0
 
-    for line in @ext_content.getReadLine
+    for line in @ext_content.read_line
 
       if line.strip == ''
 
@@ -31,7 +31,7 @@ class MaxNewlineLimitInCode < CodeScanInterface
 
           @ext_log.append(template_msg)
           @is_error = true
-          @ext_content.setDeleteAtReadLine(count - 1)
+          @ext_content.delete_at_read_line(count - 1)
         end
       else
 

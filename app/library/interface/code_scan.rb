@@ -1,5 +1,5 @@
 class CodeScanInterface
-  def set_data(_name, _content, _log)
+  def default_value(_value)
     raise 'Don\'t forget to implement the eat method'
   end
 
@@ -7,7 +7,7 @@ class CodeScanInterface
     raise 'Don\'t forget to implement the eat method'
   end
 
-  def default_value(_value)
+  def set_data(_name, _content, _log)
     raise 'Don\'t forget to implement the eat method'
   end
 end

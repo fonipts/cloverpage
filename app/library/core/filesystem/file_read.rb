@@ -3,11 +3,10 @@ class FileRead
     @list_content = []
     @clone_list_content = []
     @list_index_delete = []
-    # @path_join_file = File.join(app_dir, filename)
     @filename = filename
   end
 
-  def initReadFile
+  def init_read_file
     @list_content = []
     @clone_list_content = []
     f = File.open(@filename, 'r')
@@ -20,7 +19,7 @@ class FileRead
     f.close
   end
 
-  def initWriteFile
+  def init_write_file
     reference = 0
     counter = -1
     line_counter = 0
@@ -42,19 +41,19 @@ class FileRead
     File.write(@path_join_file, @clone_list_content.join(''), mode: 'w')
   end
 
-  def getReadLine
+  def read_line
     @clone_list_content
   end
 
-  def setModifyReadLine(index, content)
+  def modify_read_line(index, content)
     @clone_list_content[index] = content
   end
 
-  def setAppendReadLine(content)
+  def append_read_line(content)
     @clone_list_content.append(content)
   end
 
-  def setDeleteAtReadLine(index)
+  def delete_at_read_line(index)
     @list_index_delete.append(index)
   end
 
@@ -62,11 +61,11 @@ class FileRead
     File.exist?(@path_join_file)
   end
 
-  def getPathJoinFile
+  def path_join_file
     @path_join_file
   end
 
-  def getFilename
+  def filename
     @filename
   end
 end

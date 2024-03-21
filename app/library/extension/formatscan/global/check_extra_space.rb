@@ -8,11 +8,7 @@ class CheckExtraSpaceInCode < CodeScanInterface
     @ext_log = []
   end
 
-  def set_data(name, content, log)
-    @ext_name = name
-    @ext_content = content
-    @ext_log = log
-  end
+  def default_value(value); end
 
   def read
     return unless @ext_config
@@ -25,9 +21,9 @@ class CheckExtraSpaceInCode < CodeScanInterface
     count_scan = 0
     count = 1
 
-    getReadLine = @ext_content.getReadLine
+    read_line = @ext_content.read_line
 
-    for line in getReadLine
+    for line in read_line
       msg = line
 
       if msg.match(reg_a1)
@@ -84,5 +80,9 @@ class CheckExtraSpaceInCode < CodeScanInterface
     end
   end
 
-  def default_value(value); end
+  def set_data(name, content, log)
+    @ext_name = name
+    @ext_content = content
+    @ext_log = log
+  end
 end

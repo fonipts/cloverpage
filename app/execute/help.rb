@@ -8,15 +8,15 @@ class HelpCommand < CommandInitiateInterface
   def execute
     puts 'Available command in cloverpage'.green
     for key, value in CustomCommand.global_list_command
-      puts format('  %s ... %s', key, value.get_description)
+      puts format('  %s ... %s', key, value.description)
     end
   end
 
-  def get_description
+  def description
     'See all available command in cloverpage'
   end
 
-  def set_variable(cmd, _data)
+  def variable(cmd, _data)
     p cmd
   end
 end

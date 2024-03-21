@@ -9,15 +9,15 @@ class VerifyContent
     @list_project = []
   end
 
-  def InitConfig
-    checkProject
+  def init_config
+    check_project
   end
 
-  def isError
+  def is_error
     @is_error
   end
 
-  def errorMessage
+  def error_message
     @error_message
   end
 
@@ -27,28 +27,28 @@ class VerifyContent
 
   private
 
-  def checkProject
+  def check_project
     if @init_config
 
-      if !@init_config.has_key?('scans')
+      if !@init_config.key?('scans')
         @is_error = true
         @error_message = 'Please provide the `scan` project details'
 
       else
         for x in @init_config['scans']
 
-          if !x.has_key?('project')
+          if !x.key?('project')
             @is_error = true
             @error_message = 'List of `project` is missing'
             break
           else
-            unless x['project'].has_key?('name')
+            unless x['project'].key?('name')
               @is_error = true
               @error_message = 'In list of project the `name` is missing'
               break
 
             end
-            unless x['project'].has_key?('description')
+            unless x['project'].key?('description')
               @is_error = true
               @error_message = 'In list of project the `description` is missing'
               break
@@ -61,12 +61,12 @@ class VerifyContent
               break
 
             end
-            unless x['project'].has_key?('language')
+            unless x['project'].key?('language')
               @is_error = true
               @error_message = 'In list of project the `language` is missing'
               break
             end
-            unless x['project'].has_key?('include')
+            unless x['project'].key?('include')
               @is_error = true
               @error_message = 'In list of project the `include` is missing'
               break
@@ -90,7 +90,7 @@ class VerifyContent
               break
             end
 
-            if x['project'].has_key?('exclude') && !(x['project']['exclude'].instance_of? Array)
+            if x['project'].key?('exclude') && !(x['project']['exclude'].instance_of? Array)
               @is_error = true
               @error_message = '`exclude` must be in array format'
               break

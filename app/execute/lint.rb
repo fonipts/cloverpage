@@ -18,35 +18,36 @@ class LintCommand < CommandInitiateInterface
   end
 
   def execute
-    lintExecute(@control_data)
+    lint_execute(@control_data)
   end
 
-  def get_description
+  def description
     'To execute linter in your workspace'
   end
 
-  def set_variable(cmd, data)
+  def variable(cmd, data)
     @command_list = cmd
     @control_data = data
   end
 
   private
 
-  def lintExecute(_data)
-    logs = ScanLogs.new
-    getLogs = logs.getLogs
-    review = ReviewProject.new(@control_data, logs, LangugeExt.global_class_codescan, 'lint_config')
+  def lint_execute(_data)
+    scan_logs = ScanLogs.new
+
+    get_logs = scan_logs.logs
+    review = ReviewProject.new(@control_data, scan_logs, LangugeExt.global_class_codescan, 'lint_config')
 
     review.deploy
-    if getLogs.count == 0
+    if get_logs.count == 0
       puts 'No error found'.green
     else
-      puts getLogs.join("\n")
+      puts get_logs.join("\n")
 
     end
   end
 
-  def isWriteFiles
+  def is_write_files
     return true if @command_list.index '--write'
 
     puts 'if like to modify your code add `--write` in your terminal command'.yellow
