@@ -3,7 +3,6 @@ require_relative '../config/app'
 require_relative '../config/message'
 require_relative '../config/supported_language'
 require_relative '../library/core/schema/verify_content'
-# require_relative '../library/core/execute_content'
 require_relative '../library/core/filesystem/scan_logs'
 require_relative '../library/exception/exception_config_file'
 
@@ -18,19 +17,8 @@ class FormatCommand < CommandInitiateInterface
   end
 
   def execute
-    # app_dir = Dir.pwd
-    # config_filename = File.join(app_dir, AppDefaultVaribles.default_filename_with_extname)
-
-    # if File.file?(config_filename)
-    #  file = File.open(config_filename)
-    #  data = YAML.load(file.read)
     formatExecute(@control_data)
 
-    # else
-
-    #  puts ErrorVaribles.config_file_notfund.red
-
-    # end
   end
 
   def get_description
