@@ -4,14 +4,13 @@ class CheckTrailingSpaceInCode < CodeScanInterface
   def initialize
     @ext_name = ''
     @ext_content = []
-    @ext_config = nil
+    @ext_config = true
     @ext_log = []
   end
 
-  def setData(name, content, config, log)
+  def set_data(name, content, log)
     @ext_name = name
     @ext_content = content
-    @ext_config = config.first
     @ext_log = log
   end
 
@@ -36,5 +35,9 @@ class CheckTrailingSpaceInCode < CodeScanInterface
 
       count += 1
     end
+  end
+
+  def default_value(value)
+    @ext_config = value.first
   end
 end

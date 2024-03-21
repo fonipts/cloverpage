@@ -1,5 +1,5 @@
 require_relative '../library/extension/codescan/global/file_line_limit'
-require_relative '../library/extension/codescan/global/check_new_line_in_last_file'
+require_relative '../library/extension/formatscan/global/check_new_line_in_last_file'
 require_relative '../library/extension/formatscan/global/check_trailing_space'
 require_relative '../library/extension/codescan/global/max_newline_limit'
 require_relative '../library/extension/formatscan/global/check_extra_space'
@@ -19,12 +19,12 @@ module LangugeExt
 
   @global_class_codescan = {
     "file_line_limit": FileLineLimit.new,
-    "check_new_line_in_last_file": CheckNewLineInCode.new,
     "max_newline_limit": MaxNewlineLimitInCode.new
   }
 
   @global_class_formatscan = {
     "check_trailing_space": CheckTrailingSpaceInCode.new,
+    "check_new_line_in_last_file": CheckNewLineInCode.new,
     "check_extra_space": CheckExtraSpaceInCode.new
   }
 

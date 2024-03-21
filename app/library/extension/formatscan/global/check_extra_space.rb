@@ -8,10 +8,9 @@ class CheckExtraSpaceInCode < CodeScanInterface
     @ext_log = []
   end
 
-  def setData(name, content, config, log)
+  def set_data(name, content, log)
     @ext_name = name
     @ext_content = content
-    @ext_config = config.first
     @ext_log = log
   end
 
@@ -84,4 +83,6 @@ class CheckExtraSpaceInCode < CodeScanInterface
       count += 1
     end
   end
+
+  def default_value(value); end
 end

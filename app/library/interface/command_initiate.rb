@@ -3,11 +3,11 @@ class CommandInitiateInterface
     raise 'Don\'t forget to implement the eat method'
   end
 
-  def getDescription
+  def get_description
     raise 'Don\'t forget to implement the eat method'
   end
 
-  def setCommandVariable(_cmd)
+  def set_variable(_cmd, _data)
     raise 'Don\'t forget to implement the eat method'
   end
 end

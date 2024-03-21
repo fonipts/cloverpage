@@ -1,16 +1,16 @@
 class FileRead
-  def initialize(app_dir, filename)
+  def initialize(filename)
     @list_content = []
     @clone_list_content = []
     @list_index_delete = []
-    @path_join_file = File.join(app_dir, filename)
+    # @path_join_file = File.join(app_dir, filename)
     @filename = filename
   end
 
   def initReadFile
     @list_content = []
     @clone_list_content = []
-    f = File.open(@path_join_file, 'r')
+    f = File.open(@filename, 'r')
 
     f.each_line do |line|
       @list_content.append(line)

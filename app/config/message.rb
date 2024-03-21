@@ -1,5 +1,7 @@
+require_relative './app'
+
 module ErrorVaribles
-  @config_file_notfund = 'I can not find the default config, please check'
+  @config_file_notfund = 'I can not find the default config, please check the `' + AppDefaultVaribles.default_filename_with_extname + '`'
   @invalid_yaml_format = 'Invalid yaml format, please check the file'
 
   def self.config_file_notfund

@@ -4,14 +4,14 @@ class CheckNewLineInCode < CodeScanInterface
   def initialize
     @ext_name = ''
     @ext_content = nil
-    @ext_config = nil
+    @ext_config = 100
     @ext_log = []
   end
 
-  def setData(name, content, config, log)
+  def set_data(name, content, log)
     @ext_name = name
     @ext_content = content
-    @ext_config = config.first
+
     @ext_log = log
   end
 
@@ -29,5 +29,9 @@ class CheckNewLineInCode < CodeScanInterface
     @is_error = true
     @ext_log.append(msg_data)
     @ext_content.setAppendReadLine('\n')
+  end
+
+  def default_value(value)
+    @ext_config = value.first
   end
 end

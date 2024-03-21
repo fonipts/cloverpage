@@ -1,5 +1,5 @@
 module AppDefaultVaribles
-  @default_version = '0.5.0'
+  @default_version = '0.0.1'
   @default_filename = 'cloverrc'
   @default_extname = 'yaml'
   @default_filename_with_extname = '%s.%s'

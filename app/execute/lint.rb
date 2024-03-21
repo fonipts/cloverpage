@@ -1,8 +1,9 @@
 require_relative '../library/interface/command_initiate'
 require_relative '../config/app'
 require_relative '../config/message'
+require_relative '../config/supported_language'
 require_relative '../library/core/schema/verify_content'
-require_relative '../library/core/execute_content'
+require_relative '../library/core/scan/review_project'
 require_relative '../library/core/filesystem/scan_logs'
 require_relative '../library/exception/exception_config_file'
 
@@ -13,44 +14,30 @@ require 'yaml'
 class LintCommand < CommandInitiateInterface
   def initialize
     @command_list = []
+    @control_data = {}
   end
 
   def execute
-    app_dir = Dir.pwd
-    config_filename = File.join(app_dir, AppDefaultVaribles.default_filename_with_extname)
-
-    if File.file?(config_filename)
-      file = File.open(config_filename)
-      data = YAML.load(file.read)
-      lintExecute(data)
-
-    else
-
-      puts ErrorVaribles.config_file_notfund.red
-
-    end
+    lintExecute(@control_data)
   end
 
-  def getDescription
+  def get_description
     'To execute linter in your workspace'
   end
 
-  def setCommandVariable(cmd)
+  def set_variable(cmd, data)
     @command_list = cmd
+    @control_data = data
   end
 
   private
 
-  def lintExecute(data)
-    verify = VerifyContent.new(data)
-    verify.InitConfig()
-
-    raise ExceptionConfigFile.new(verify.errorMessage) if verify.isError
-
+  def lintExecute(_data)
     logs = ScanLogs.new
-    executeProject(verify.getListProject, isWriteFiles, logs)
     getLogs = logs.getLogs
+    review = ReviewProject.new(@control_data, logs, LangugeExt.global_class_codescan, 'lint_config')
 
+    review.deploy
     if getLogs.count == 0
       puts 'No error found'.green
     else
