@@ -22,7 +22,7 @@ class CheckNewLineInCode < CodeScanInterface
     reg_a = /\n$/
     return if msg.match(reg_a)
 
-    msg_data = format('file `%s` has no newline found', @ext_name)
+    msg_data = format('file `%{ext_name}` has no newline found', ext_name: @ext_name)
     @is_error = true
     @ext_log.append(msg_data)
     @ext_content.append_read_line('\n')
