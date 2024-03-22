@@ -9,12 +9,18 @@ class ReviewProject
     @global_class = global_class
     @config_name = config_name
     @list_project = @data['scans']
+
+    @is_write = false
   end
 
   def deploy
     clone_data = @list_project.first.clone
     @list_project.shift
     load_project_scan(clone_data, @config_name)
+  end
+
+  def is_write(is_write)
+    @is_write = is_write
   end
 
   private
@@ -70,7 +76,10 @@ class ReviewProject
         @global_class[key].set_data(file, file_read, @log_class)
         @global_class[key].read
 
-        read_file(files, dirs, config_name, local_language) if @global_class.count == countr
+        if @global_class.count == countr
+          file_read.init_write_file if @is_write
+          read_file(files, dirs, config_name, local_language)
+        end
         countr += 1
       end
 

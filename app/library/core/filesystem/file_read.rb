@@ -37,8 +37,8 @@ class FileRead
 
       @clone_list_content.delete_at(reference - line_counter)
     end
-
-    File.write(@path_join_file, @clone_list_content.join(''), mode: 'w')
+    # p @clone_list_content.join('')
+    File.write(@filename, @clone_list_content.join(''), mode: 'w')
   end
 
   def read_line

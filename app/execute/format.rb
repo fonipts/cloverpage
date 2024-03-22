@@ -32,12 +32,13 @@ class FormatCommand < CommandInitiateInterface
   private
 
   def format_execute(_data)
+    p @command_list.index 'fix'
     scan_logs = ScanLogs.new
 
     get_logs = scan_logs.logs
 
     review = ReviewProject.new(@control_data, scan_logs, LangugeExt.global_class_formatscan, 'format_config')
-
+    review.is_write(true) if @command_list.index 'fix'
     review.deploy
     if get_logs.count == 0
       puts 'No error found'.green
