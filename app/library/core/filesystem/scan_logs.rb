@@ -7,7 +7,5 @@ class ScanLogs
     @logs.append(data)
   end
 
-  def logs
-    @logs
-  end
+  attr_reader :logs
 end

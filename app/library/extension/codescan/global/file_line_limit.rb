@@ -25,5 +25,4 @@ class FileLineLimit < CodeScanInterface
     @ext_content = content
     @ext_log = log
   end
-
 end

@@ -18,7 +18,6 @@ class FormatCommand < CommandInitiateInterface
 
   def execute
     format_execute(@control_data)
-
   end
 
   def description

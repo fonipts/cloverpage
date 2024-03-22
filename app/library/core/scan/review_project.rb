@@ -29,7 +29,8 @@ class ReviewProject
     if data['project'].key?(config_name)
       for name in data['project'][config_name]
 
-        next unless @global_class.key?(name.keys.first.to_sym  )
+        next unless @global_class.key?(name.keys.first.to_sym)
+
         @global_class[name.keys.first.to_sym].default_value(name.values)
       end
 
@@ -39,7 +40,7 @@ class ReviewProject
   end
 
   def scan_files(dirs, config_name, local_language)
-    if dirs.count > 0
+    if dirs.count.positive?
       dir = dirs.first.clone
       dirs.shift
       scan_file = ScanFile.new
@@ -48,7 +49,7 @@ class ReviewProject
 
       read_file(files, dirs, config_name, local_language)
 
-    elsif @list_project.count > 0
+    elsif @list_project.count.positive?
       clone_data = @list_project.first.clone
       @list_project.shift
       load_project_scan(clone_data, config_name)

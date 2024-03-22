@@ -34,7 +34,7 @@ class Bootloader
     @get_config_api = YAML.load(file.read)
 
     verify = VerifyContent.new(@get_config_api)
-    verify.init_config()
+    verify.init_config
 
     raise ExceptionConfigFile.new(verify.error_message) if verify.is_error
 

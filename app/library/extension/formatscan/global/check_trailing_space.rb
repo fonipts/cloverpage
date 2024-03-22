@@ -26,7 +26,8 @@ class CheckTrailingSpaceInCode < CodeScanInterface
       unless count_scan.to_a.empty?
 
         @ext_content.modify_read_line(count - 1, read_line[count - 1].gsub(reg_a, '\n'))
-        template_msg = format('file `%{ext_name}` trail white space at line %%{count}', ext_name: @ext_name, count: count)
+        template_msg = format('file `%<ext_name>s` trail white space at line %%{count}', ext_name: @ext_name,
+                                                                                         count: count)
         @ext_log.append(template_msg)
       end
 

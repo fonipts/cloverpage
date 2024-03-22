@@ -13,13 +13,7 @@ class VerifyContent
     check_project
   end
 
-  def is_error
-    @is_error
-  end
-
-  def error_message
-    @error_message
-  end
+  attr_reader :is_error, :error_message
 
   def get_list_project
     @list_project
