@@ -1,10 +1,10 @@
 require_relative '../../../interface/code_scan'
 
-class CheckTrailingSpaceInCode < CodeScanInterface
+class LineLimitCharacter < CodeScanInterface
   def initialize
     @ext_name = ''
-    @ext_content = []
-    @ext_config = true
+    @ext_content = nil
+    @ext_config = 150
     @ext_log = []
   end
 
@@ -13,22 +13,17 @@ class CheckTrailingSpaceInCode < CodeScanInterface
   end
 
   def read
-    return unless @ext_config
-
-    reg_a = /(\s{1,})\n$/
-
     count = 1
     read_line = @ext_content.read_line
     for line in read_line
 
-      count_scan = line.scan(reg_a)
+      count_str = line.length
 
-      unless count_scan.to_a.empty?
-        @ext_content.modify_read_line(count - 1, read_line[count - 1].gsub(reg_a, "\n")) # :format_except
-        template_msg = format('file has trail white space at line %<count>s', count: count)
+      if count_str > @ext_config
+        template_msg = format('line %s it execeed string length %s/%s', count, count_str, @ext_config)
         @ext_log.append(template_msg)
+        @is_error = true
       end
-
       count += 1
     end
   end

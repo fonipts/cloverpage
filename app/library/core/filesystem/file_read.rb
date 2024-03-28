@@ -37,8 +37,11 @@ class FileRead
 
       @clone_list_content.delete_at(reference - line_counter)
     end
-    # p @clone_list_content.join('')
     File.write(@filename, @clone_list_content.join(''), mode: 'w')
+  end
+
+  def ext_name
+    File.extname(@filename)
   end
 
   def read_line

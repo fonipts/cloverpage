@@ -35,16 +35,12 @@ class LintCommand < CommandInitiateInterface
   def lint_execute(_data)
     scan_logs = ScanLogs.new
 
-    get_logs = scan_logs.logs
     review = ReviewProject.new(@control_data, scan_logs, LangugeExt.global_class_codescan, 'lint_config')
-
+    review.add_initial_class(LangugeExt.initial_class_codescan)
+    review.is_write(true) if @command_list.index 'fix'
     review.deploy
-    if get_logs.count == 0
-      puts 'No error found'.green
-    else
-      puts get_logs.join("\n")
 
-    end
+    scan_logs.error_show_log
   end
 
   def is_write_files

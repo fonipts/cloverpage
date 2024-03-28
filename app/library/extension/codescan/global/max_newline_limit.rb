@@ -27,7 +27,7 @@ class MaxNewlineLimitInCode < CodeScanInterface
         newline_count += 1
         if newline_count > @ext_config
 
-          template_msg = format('file `%s` found %s or more newline at line code %s', @ext_name, @ext_config, count)
+          template_msg = format('file found %s or more newline at line code %s', @ext_config, count)
 
           @ext_log.append(template_msg)
           @is_error = true

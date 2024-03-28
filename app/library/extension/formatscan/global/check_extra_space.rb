@@ -4,7 +4,7 @@ class CheckExtraSpaceInCode < CodeScanInterface
   def initialize
     @ext_name = ''
     @ext_content = []
-    @ext_config = nil
+    @ext_config = true
     @ext_log = []
   end
 
@@ -14,68 +14,26 @@ class CheckExtraSpaceInCode < CodeScanInterface
     return unless @ext_config
 
     msg = ''
-    list_trail_space = []
-    reg_a = /[=,{}]\s{1,}/
-    reg_a1 = /\b(\s{0,})(={1,})(\s{0,})\b/
-
-    count_scan = 0
+    reg_a1 = /(\s{0,})(={2,})(\s{0,})/
+    reg_a2 = %r{(\s{0,})([/*\-+]={1,})(\s{0,})}
     count = 1
-
     read_line = @ext_content.read_line
 
     for line in read_line
       msg = line
+      match1 = msg.match(reg_a1)
+      match2 = msg.match(reg_a2)
 
-      if msg.match(reg_a1)
-
-        split_equal = msg.split(reg_a1)
-        puts msg
-        p msg.split('')
-        puts count
-        puts @ext_name
-        row_c = 0
-        count_space = 0
-        for line_s in split_equal
-          # puts "----"
-          # p split_equal[row_c].split
-          # puts split_equal[row_c]
-          # puts @ext_name
-          # puts "----"
-          if split_equal[row_c] == ''
-            split_equal[row_c] = ' '
-
-            count_scan += 1
-          end
-
-          if split_equal[row_c] == ' '
-            count_space += 1
-          else
-
-            #   count_space = 0
-          end
-
-          row_c += 1
-        end
-
-        # puts msg
-        msg = split_equal.join('')
-        # puts msg
-        # puts "@@@"
-
+      if match1 && (match1[1] != ' ' || match1[3] != ' ')
+        @ext_content.modify_read_line(count - 1, msg.gsub(reg_a1, ' ' + match1[2] + ' '))
+        template_msg = format('file has ` == ` has no equal spacing %<count>s', count: count)
+        @ext_log.append(template_msg)
       end
-      # count_scan = line.scan(reg_a)
-
-      if count_scan > 0
-        #   puts line
-        #   p count_scan
-        #   puts @ext_name
-        #   puts count
-        #   puts "@@@"
-        # @ext_content.setModifyReadLine( count - 1  , msg)
-        # template_msg ="file `%s` trail white space at line %s"% [@ext_name,count]
-        # @ext_log.append(template_msg)
+      if match2 && (match2[1] != ' ' || match2[3] != ' ')
+        @ext_content.modify_read_line(count - 1, msg.gsub(reg_a2, ' ' + match2[2] + ' '))
+        template_msg = format('file has ` %<sign>s ` has no equal spacing %<count>s', count: count, sign: match2[2])
+        @ext_log.append(template_msg)
       end
-
       count += 1
     end
   end

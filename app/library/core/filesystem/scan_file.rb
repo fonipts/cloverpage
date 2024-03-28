@@ -21,6 +21,15 @@ class ScanFile
     end
   end
 
+  def get_valid_ext_respected_class(exts)
+    obj = {}
+    for ext in exts
+      ext_format = format('.%s', LangugeExt.langExtList[ext.to_sym].to_s)
+      obj[ext_format] = ext.to_sym.to_s
+    end
+    obj
+  end
+
   def get_files(path)
     dir_count = 0
     path_join = if @is_root_dir

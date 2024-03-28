@@ -1,7 +1,6 @@
 require_relative '../config/app'
 require_relative '../config/custom_command'
 require_relative '../config/message'
-
 require_relative '../library/core/schema/verify_content'
 require_relative './exception/exception_config_file'
 
@@ -19,7 +18,7 @@ class Bootloader
   end
 
   def verify_command
-    if @default_arg_list.count == 0
+    if @default_arg_list.count.zero?
       raise ExceptionConfigFile.new('Empty command, please specify your command or run `help`')
     end
 

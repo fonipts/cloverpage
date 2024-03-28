@@ -16,7 +16,5 @@ class HelpCommand < CommandInitiateInterface
     'See all available command in cloverpage'
   end
 
-  def variable(cmd, _data)
-    p cmd
-  end
+  def variable(cmd, _data)end
 end

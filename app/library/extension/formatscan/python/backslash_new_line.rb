@@ -1,6 +1,6 @@
 require_relative '../../../interface/code_scan'
 
-class CheckTrailingSpaceInCode < CodeScanInterface
+class BackslashNewLine < CodeScanInterface
   def initialize
     @ext_name = ''
     @ext_content = []
@@ -15,7 +15,7 @@ class CheckTrailingSpaceInCode < CodeScanInterface
   def read
     return unless @ext_config
 
-    reg_a = /(\s{1,})\n$/
+    reg_a = /(\\\s{0,})$/
 
     count = 1
     read_line = @ext_content.read_line
@@ -24,8 +24,7 @@ class CheckTrailingSpaceInCode < CodeScanInterface
       count_scan = line.scan(reg_a)
 
       unless count_scan.to_a.empty?
-        @ext_content.modify_read_line(count - 1, read_line[count - 1].gsub(reg_a, "\n")) # :format_except
-        template_msg = format('file has trail white space at line %<count>s', count: count)
+        template_msg = format('file has `\` use parenthesis `()` to make a newline at line %<count>s', count: count)
         @ext_log.append(template_msg)
       end
 

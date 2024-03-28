@@ -20,12 +20,13 @@ class CheckNewLineInCode < CodeScanInterface
       msg = line.to_s
     end
     reg_a = /\n$/
+    return if @ext_content.read_line.count.zero?
     return if msg.match(reg_a)
 
-    msg_data = format('file `%<ext_name>s` has no newline found', ext_name: @ext_name)
+    msg_data = format('file has no newline found')
     @is_error = true
     @ext_log.append(msg_data)
-    @ext_content.append_read_line('\n')
+    @ext_content.append_read_line("\n") # :format_except
   end
 
   def set_data(name, content, log)

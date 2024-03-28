@@ -2,6 +2,14 @@ Documentation:
   Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false  
+Style/For:  
+  Enabled: false
+Metrics/MethodLength:
+  Max: 20
+Metrics/PerceivedComplexity:
+  Max: 20  
+Metrics/CyclomaticComplexity:
+  Max: 20    
 Lint/MissingSuper:
   Exclude:
     - 'app/**/**/*'  
