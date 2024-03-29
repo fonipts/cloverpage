@@ -14,7 +14,7 @@ class CheckExtraSpaceInCode < CodeScanInterface
     return unless @ext_config
 
     msg = ''
-    reg_a1 = /(\s{0,})([\!]{0,1}={2,})(\s{0,})/
+    reg_a1 = /(\s{0,})([\!]{0,1}={2,}|[\!\<\>]{1}={1})(\s{0,})/
     reg_a2 = %r{(\s{0,})([/*\-+]={1,})(\s{0,})}
     reg_a21 = /^[\s]{0,}([\/\*-+])/
     count = 1
