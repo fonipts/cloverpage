@@ -27,7 +27,6 @@ class CheckExtraSpaceInCode < CodeScanInterface
       match21 = msg.match(reg_a21)
 
       if match1 && (match1[1] != ' ' || match1[3] != ' ') && !match21
-        #@ext_content.modify_read_line(count - 1, msg.gsub(reg_a1, ' ' + match1[2] + ' '))
         str_rep = line.to_s.gsub!(reg_a1) do |m|
           
           ' '+ Regexp.last_match(2)+' '
