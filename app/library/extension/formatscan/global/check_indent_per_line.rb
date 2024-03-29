@@ -16,6 +16,8 @@ class CheckIndentPerLine < CodeScanInterface
   def read
     return unless @ext_config.positive?
 
+    reg_comment = /^[\s]{0,}([\*\\\#])/
+
     count = 1
     indent_count = 0
     for line in @ext_content.read_line
@@ -23,6 +25,9 @@ class CheckIndentPerLine < CodeScanInterface
       count_scan = string_line.count_first_space
       indent_count = count_scan if count_scan.positive?
       if indent_count.positive?
+
+        match_reg_comment = line.match(reg_comment)
+
         base_number = (indent_count / @ext_config) * @ext_config
 
         is_not_valid = true
@@ -30,8 +35,9 @@ class CheckIndentPerLine < CodeScanInterface
 
         is_not_valid = false if (base_number - @ext_config) == indent_count
         is_not_valid = false if base_number == indent_count
+        is_not_valid = false if match_reg_comment
         if is_not_valid
-          template_msg = format('file has invalid indentation at line %<count>s', count: count)
+          template_msg = format('file has invalid indentation at line %<count>s : %<indent_count>s', count: count, indent_count:indent_count)
           @ext_log.append(template_msg)
         end
       end

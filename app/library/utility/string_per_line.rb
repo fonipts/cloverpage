@@ -5,7 +5,7 @@ class StringPerLine
 
   def count_first_space
     lines = @data.gsub(/\n/, '').split('')
-    reg_a = /\s/
+    reg_a = /\s\n/
     non_stop = true
     counter = 0
     for line in lines
