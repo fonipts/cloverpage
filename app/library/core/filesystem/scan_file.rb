@@ -4,10 +4,10 @@ require 'fileutils'
 class ScanFile
   def initialize
     @proj_dir = Dir.pwd
+    @root_dirs = []
     @files = []
     @exclude = []
     @valid_ext = []
-    @is_root_dir = true
   end
 
   def set_exclude(paths)
@@ -30,19 +30,20 @@ class ScanFile
     obj
   end
 
-  def get_files(path)
+  def get_files(path, is_root)
     dir_count = 0
-    path_join = if @is_root_dir
-                  format('%s/%s/*', @proj_dir, path)
+    path_join = if is_root
+                  get_dir_path(path)
                 else
                   format('%s/*', path)
                 end
-    @is_root_dir = false
+
     dir_lists = Dir.glob(path_join)
 
     for dir_list in dir_lists
       if File.directory?(dir_list)
-        get_files(dir_list)
+        @root_dirs.append(dir_list) if is_root
+        get_files(dir_list, false)
       elsif @valid_ext.include? File.extname(dir_list)
         @files.append(dir_list)
       end
@@ -50,4 +51,25 @@ class ScanFile
 
     @files
   end
+
+  private
+
+  def get_dir_path(path)
+    reg_os_dir = %r{^/}
+    if (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil # :comment for window os
+      reg_os_dir = /^[a-zA-Z]:/
+    end
+    match1 = path.match(reg_os_dir)
+    if match1
+      if File.directory?(path)
+        @proj_dir
+      else
+        format('%s/%s/*', @proj_dir, path)
+      end
+    else
+      format('%s/%s/*', @proj_dir, path)
+    end
+  end
+
+  attr_reader :root_dirs
 end

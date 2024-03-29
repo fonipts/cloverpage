@@ -57,8 +57,7 @@ class ReviewProject
       scan_file = ScanFile.new
       scan_file.set_valid_ext(local_language)
       get_respected_class = scan_file.get_valid_ext_respected_class(local_language)
-      files = scan_file.get_files(dir)
-
+      files = scan_file.get_files(dir, true)
       read_file(files, dirs, config_name, local_language, get_respected_class)
 
     elsif @list_project.count.positive?
@@ -89,6 +88,7 @@ class ReviewProject
         end
       end
       @log_class.file_name(file)
+
       for key, _ in global_class_clone
 
         global_class_clone[key].set_data(file, file_read, @log_class)

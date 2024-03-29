@@ -28,11 +28,10 @@ class StringLiteral < CodeScanInterface
       }
     }
 
-    return if qoute_type.key(@ext_config.to_sym)
+    return unless qoute_type.key?(@ext_config.to_sym)
 
     reg_allow_comment = %r{/{2,}\s{0,}(:format_except)\b}
     if ['.py', '.rb'].index @ext_content.ext_name
-      reg_a = /\#(.*?)\n/
       reg_allow_comment = /\#\s{0,}(:format_except)\b/
     end
 
@@ -43,8 +42,8 @@ class StringLiteral < CodeScanInterface
       if !match1.empty? && line.to_s.scan(%r{(/)(.*?)(/)}).to_a.empty? && line.to_s.scan(reg_allow_comment).to_a.empty?
         str_rep = line.to_s.clone.gsub!(reg_a) do |m|
           m.to_s.gsub(/^['"]/,
-            qoute_type[@ext_config.to_sym][:value]).to_s.gsub(/['"]$/,
-            qoute_type[@ext_config.to_sym][:value])
+                      qoute_type[@ext_config.to_sym][:value]).to_s.gsub(/['"]$/,
+                                                                        qoute_type[@ext_config.to_sym][:value])
         end
 
         valid_counter = 0
@@ -55,8 +54,8 @@ class StringLiteral < CodeScanInterface
         if valid_counter != match1.count
           @ext_content.modify_read_line(count - 1, str_rep)
           template_msg = format('file literal string is invalid %<count>s, use the `%<literal>s`',
-            count: count,
-            literal: str_rep)
+                                count: count,
+                                literal: @ext_config)
           @ext_log.append(template_msg)
         end
       end
@@ -68,20 +67,5 @@ class StringLiteral < CodeScanInterface
     @ext_name = name
     @ext_content = content
     @ext_log = log
-  end
-
-  private
-
-  def get_first_space(data)
-    lines = data.gsub(/\n/, '').split('')
-    reg_a = /\s/
-    non_stop = true
-    counter = 0
-    for line in lines
-      reg_line = line.scan(reg_a)
-      non_stop = false if reg_line.empty?
-      counter += 1 if non_stop
-    end
-    counter
   end
 end

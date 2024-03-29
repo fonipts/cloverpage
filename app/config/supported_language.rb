@@ -7,6 +7,7 @@ require_relative '../library/extension/formatscan/global/check_new_line_in_last_
 require_relative '../library/extension/formatscan/global/check_trailing_space'
 require_relative '../library/extension/formatscan/global/check_extra_space'
 require_relative '../library/extension/formatscan/global/string_literal'
+require_relative '../library/extension/codescan/python/relative_import'
 
 require_relative '../library/extension/formatscan/python/backslash_new_line'
 
@@ -40,11 +41,14 @@ module LangugeExt
   }
 
   @initial_class_codescan = {
-    'python': {}
+    'python': {
+      'relative_import': RelativeImportPython.new
+    }
   }
   @initial_class_formatscan = {
     'python': {
       'backslash_new_line': BackslashNewLine.new
+
     }
   }
 
