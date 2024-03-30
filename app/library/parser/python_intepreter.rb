@@ -59,48 +59,49 @@ class PythonInterpreter < CodeInterpreterInterface
 
     @content = str_rep1
   end
+
   def strip_class_function
     lines = @content.split("\n") # :format_except
     count = 1
-    class_regexp = /class\s{1,}([a-zA-Z0-9\_]{1,})?(\([a-zA-Z0-9\_\.]{1,}\))?:/
-    function_regexp = /(\@[a-zA-Z0-0\_]\n{1,})?\s{0,}def\s{1,}([a-zA-Z0-9\_]{1,})(\([a-zA-Z0-9\_\.\,\:\=]{1,}\))/#class\s{1,}([a-zA-Z0-9\_]{1,})?(\([a-zA-Z0-9\_\.]{1,}\))?:
-    
-    class_name_str = ""
+    class_regexp = /class\s{1,}([a-zA-Z0-9_]{1,})?(\([a-zA-Z0-9_.]{1,}\))?:/
+    function_regexp = /(@[a-zA-Z0-0_]\n{1,})?\s{0,}def\s{1,}([a-zA-Z0-9_]{1,})(\([a-zA-Z0-9_.,:=]{1,}\))/
+
+    class_name_str = ''
     for line in lines
       scan_class = line.scan(class_regexp)
       scan_function = line.scan(function_regexp)
+      string_line = StringPerLine.new(line.to_s)
+      count_scan = string_line.count_first_space
+
       if !scan_class.to_a.empty?
-        p line
-        p scan_class
-        puts count
-        puts "scan_class"
-        class_name_str = scan_class[0][0]
-        @class_value[class_name_str] ={
-          "func":[],
-          "inherit": scan_class[0][1],
-          "row": count
-        }
-      else 
-        string_line = StringPerLine.new(line.to_s)
-        count_scan = string_line.count_first_space
-        if count_scan==0 && class_name_str !=""
-          puts count_scan
-          puts count
-          puts line
-          puts class_name_str
-          puts "count_scan"
-          class_name_str =""
-        end  
-       # puts count_scan
-       # puts "count_scan"
+      # p line
+      # p scan_class
+      # puts count
+      # puts 'scan_class'
+      # class_name_str = scan_class[0][0]
+      # @class_value[class_name_str] ={
+      #   'func':[],
+      #   'inherit': scan_class[0][1],
+      #   'row': count
+      # }
+      elsif count_scan == 0 && class_name_str != ''
+
+        #    puts count_scan
+        #    puts count
+        #    puts line
+        #    puts class_name_str
+        #    puts 'count_scan'
+        #    class_name_str =''
+        # puts count_scan
+        # puts 'count_scan'
       end
       unless scan_function.to_a.empty?
-      #  p line
-      #  p scan_function
-      #  puts "scan_function"
+        #  p line
+        #  p scan_function
+        #  puts 'scan_function'
       end
-      count+=1
+      count += 1
     end
-    puts @content
+    # puts @content
   end
 end

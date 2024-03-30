@@ -19,7 +19,7 @@ class RelativeImportPython < CodeScanInterface
     cls = PythonInterpreter.new
     cls.set_data('', @ext_content, '')
     cls.execute
-    #p cls.imports
+    # p cls.imports
   end
 
   def set_data(name, content, log)

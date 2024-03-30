@@ -59,14 +59,14 @@ class RubyInterpreter < CodeInterpreterInterface
   def strip_class_function
     lines = @content.split("\n") # :format_except
     count = 1
-    class_regexp = /class\s{1,}([a-zA-Z0-9\_]{1,})?(<[a-zA-Z0-9\_\.]{1,})?/
+    class_regexp = /class\s{1,}([a-zA-Z0-9_]{1,})?(<[a-zA-Z0-9_.]{1,})?/
     for line in lines
       scan_class = line.scan(class_regexp)
-      unless scan_class.to_a.empty?
-        p line
-        p scan_class
-        puts "line"
-      end
+      next if scan_class.to_a.empty?
+
+      p line
+      p scan_class
+      puts 'line'
     end
-  end 
+  end
 end

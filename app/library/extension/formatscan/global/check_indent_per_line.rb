@@ -16,7 +16,7 @@ class CheckIndentPerLine < CodeScanInterface
   def read
     return unless @ext_config.positive?
 
-    reg_comment = /^[\s]{0,}([\*\\\#])/
+    reg_comment = /^\s{0,}([*\\\#])/
 
     count = 1
     indent_count = 0
@@ -37,7 +37,8 @@ class CheckIndentPerLine < CodeScanInterface
         is_not_valid = false if base_number == indent_count
         is_not_valid = false if match_reg_comment
         if is_not_valid
-          template_msg = format('file has invalid indentation at line %<count>s : %<indent_count>s', count: count, indent_count:indent_count)
+          template_msg = format('file has invalid indentation at line %<count>s : %<indent_count>s', count: count,
+                                                                                                     indent_count: indent_count)
           @ext_log.append(template_msg)
         end
       end

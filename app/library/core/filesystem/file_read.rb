@@ -61,8 +61,8 @@ class FileRead
   end
 
   def exists
-    File.exist?(@path_join_file)
+    File.exist?(@filename)
   end
 
-  attr_reader :path_join_file, :filename
+  attr_reader :filename, :filename
 end
