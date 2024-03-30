@@ -1,4 +1,4 @@
-ame: Ruby CI
+name: Ruby CI
 
 on: [push, pull_request]
 
