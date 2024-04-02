@@ -15,8 +15,8 @@ class InvalidComment < CodeScanInterface
   def read
     return unless @ext_config
 
-    reg_a = comment()
-    reg_allow_comment = except_comment()
+    reg_a = comment
+    reg_allow_comment = except_comment
     count = 1
 
     for line in @ext_content.read_line
@@ -35,25 +35,19 @@ class InvalidComment < CodeScanInterface
     @ext_content = content
     @ext_log = log
   end
+
   private
+
   def comment
     reg_a = %r{/{2,}(.*?)\n}
-    if ['.py','.rb'].index @ext_content.ext_name
-      reg_a = /\#(.*?)\n/
-    end
+    reg_a = /\#(.*?)\n/ if ['.py', '.rb'].index @ext_content.ext_name
     reg_a
   end
 
   def except_comment
     reg_allow_comment = %r{/{2,}\s{0,}(:comment|:format_except)\b}
-    if ['.rb'].index @ext_content.ext_name
-
-      reg_allow_comment = /\#\s{0,}(:comment|:format_except)\b/
-    end
-    if ['.py'].index @ext_content.ext_name
-      reg_allow_comment = /\#\s{0,}(:comment|:format_except|noqa:|pylint:|type:)\b/
-    end
+    reg_allow_comment = /\#\s{0,}(:comment|:format_except)\b/ if ['.rb'].index @ext_content.ext_name
+    reg_allow_comment = /\#\s{0,}(:comment|:format_except|noqa:|pylint:|type:)/ if ['.py'].index @ext_content.ext_name
     reg_allow_comment
   end
-
 end

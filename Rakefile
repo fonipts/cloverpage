@@ -1,5 +1,5 @@
 task default: %w[test]
 
 task :test do
-    ruby "test/all.rb"
+  ruby 'test/all.rb'
 end
