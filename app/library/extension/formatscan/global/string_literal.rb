@@ -14,6 +14,15 @@ class StringLiteral < CodeScanInterface
   end
 
   def read
+    # return unless qoute_type.key?(@ext_config.to_sym)
+    regexp_single_qoute = /(')(.*)(')/
+    regexp_double_qoute = /(")(.*?)(")/
+    readline = @ext_content.read_line.join("")
+    p readline.scan(regexp_single_qoute)
+    puts "-----"
+    p readline.scan(regexp_double_qoute)
+  end
+  def read_old
     qoute_type = {
       'single_qoute': {
         'value': '\'',
