@@ -66,7 +66,7 @@ class StringPerLine
     group_words = get_group_word_qoute
     count = 1
     for group_word in group_words
-      rows = rows.gsub('#@' + count.to_s + '@#', group_word) # :format_except
+      rows = rows.gsub("#@#{count}@#", group_word) # :format_except
       count += 1
     end
 

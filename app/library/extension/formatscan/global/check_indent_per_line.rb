@@ -30,7 +30,7 @@ class CheckIndentPerLine < CodeScanInterface
 
       is_not_valid = false
 
-      is_not_valid = true if count_scan % @ext_config > 0
+      is_not_valid = true if (count_scan % @ext_config).positive?
       if is_not_valid
         template_msg = format('file has invalid indentation at line %<count>s : %<indent_count>s',
                               count: count, indent_count: count_scan % @ext_config)

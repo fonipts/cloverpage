@@ -1,7 +1,7 @@
 require_relative '../../../interface/code_scan'
 require_relative '../../../utility/string_per_line'
 
-ALLOW_SIGN = ['/=']
+ALLOW_SIGN = ['/='].freeze
 
 class CheckExtraSpaceInCode < CodeScanInterface
   def initialize
@@ -16,7 +16,6 @@ class CheckExtraSpaceInCode < CodeScanInterface
   def read
     return unless @ext_config
 
-    msg = ''
     reg_a1 = /(\s{0,})(!{0,1}={2,}|[!<>]{1}={1})(\s{0,})/
     reg_a2 = %r{(\s{0,})([/*\-+]={1,})(\s{0,})}
     reg_a21 = %r{^\s{0,}([/*-+])}
@@ -37,7 +36,7 @@ class CheckExtraSpaceInCode < CodeScanInterface
         msg = line
 
         str_rep = group_word_encode.to_s.gsub!(reg_a1) do |_m|
-          ' ' + Regexp.last_match(2) + ' '
+          " #{Regexp.last_match(2)} "
         end
         @ext_content.modify_read_line(count - 1, string_line.replace_group_word_decode(str_rep))
         template_msg = format('file has `%<sign>s` has no equal spacing %<count>s', count: count, sign: match1[2])

@@ -36,7 +36,7 @@ class PythonInterpreter < CodeInterpreterInterface
   def strip_imports
     from_regexp = /from\s{1,}(.*?)\s{1,}import\s{1,}(.*?)\n/
     import_regexp = /import\s{1,}(.*?)\n/
-    line = @read_file.read_line.join("\n") # :format_except
+    line = @read_file.read_line.join("\n")
     str_rep = line.to_s.gsub!(from_regexp) do |m|
       @imports.append({
                         'class_func': ::Regexp.last_match(2),
@@ -61,7 +61,7 @@ class PythonInterpreter < CodeInterpreterInterface
   end
 
   def strip_class_function
-    lines = @content.split("\n") # :format_except
+    lines = @content.split("\n")
     count = 1
     class_regexp = /class\s{1,}([a-zA-Z0-9_]{1,})?(\([a-zA-Z0-9_.]{1,}\))?:/
     function_regexp = /(@[a-zA-Z0-0_]\n{1,})?\s{0,}def\s{1,}([a-zA-Z0-9_]{1,})(\([a-zA-Z0-9_.,:=]{1,}\))/

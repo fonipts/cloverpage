@@ -46,8 +46,9 @@ class InvalidComment < CodeScanInterface
 
   def except_comment
     reg_allow_comment = %r{/{2,}\s{0,}(:comment|:format_except)\b}
-    reg_allow_comment = /\#\s{0,}(:comment|:format_except)\b/ if ['.rb'].index @ext_content.ext_name
+    reg_allow_comment = /(\#\s{0,}(:comment|:format_except)\b|\#\{(.*?)\})/ if ['.rb'].index @ext_content.ext_name
     reg_allow_comment = /\#\s{0,}(:comment|:format_except|noqa:|pylint:|type:)/ if ['.py'].index @ext_content.ext_name
+
     reg_allow_comment
   end
 end

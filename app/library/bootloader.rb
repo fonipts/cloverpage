@@ -41,7 +41,7 @@ class Bootloader
 
     return if CustomCommand.global_list_command.key?(@command_key)
 
-    raise ExceptionConfigFile, 'No command found at `#{@command_key}` or run `help` to see available command'
+    raise ExceptionConfigFile, "No command found at `#{@command_key}` or run `help` to see available command"
   end
 
   def loader

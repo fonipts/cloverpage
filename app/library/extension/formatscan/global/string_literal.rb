@@ -1,5 +1,12 @@
 require_relative '../../../interface/code_scan'
 require_relative '../../../utility/string_per_line'
+require_relative '../../../utility/string_literal_util'
+require_relative '../../../utility/crypt'
+
+QOUTE_TYPE = {
+  'single_qoute': {},
+  'double_qoute': {}
+}.freeze
 
 class StringLiteral < CodeScanInterface
   def initialize
@@ -14,74 +21,44 @@ class StringLiteral < CodeScanInterface
   end
 
   def read
-    # return unless qoute_type.key?(@ext_config.to_sym)
-    regexp_single_qoute = /([']{1})(.*)([']{1})/
-    regexp_double_qoute = /(["]{1})(.*?)(["]{1})/
-    puts @ext_name
-    readline = @ext_content.read_line.join("")
-    capt_single = []
-    capt_double = []
-    readline = readline.to_s.gsub(regexp_single_qoute) do |m|
-      capt_single.append(m)
-      "!!!!"
+    return unless QOUTE_TYPE.key?(@ext_config.to_sym)
+
+    uniq_id_str = uniqid(8)
+    readline = @ext_content.read_line.join("<!$#{uniq_id_str}$!>")
+    string_line_cls = StringLiteralUtil.new(readline.to_s)
+    row = string_line_cls.endode_string_literal(@ext_config.to_sym.to_s)
+    row_data = row[:data].split("<!$#{uniq_id_str}$!>")
+    if @ext_config == 'single_qoute'
+      raw_type = 'double_qoute'
+      reg_allowed = /([`'\\]{1,})/
     end
-    readlineto_s = readline.clone.to_s
-    readline1 = readlineto_s.gsub(regexp_double_qoute) do |m|
-      capt_double.append(m)
-      "!!!!"
+    if @ext_config == 'double_qoute'
+      raw_type = 'single_qoute'
+      reg_allowed = /([`"\\]{1,})/
     end
-    p capt_single
-    p capt_double
-    puts capt_single.count+capt_double.count
-    #p readline.scan(regexp_single_qoute)
-    #puts "-----"
-    #p readline.scan(regexp_double_qoute)
-  end
-  def read_old
-    qoute_type = {
-      'single_qoute': {
-        'value': '\'',
-        "reg_start_match": /^'/,
-        "search_match": /(["])(.*?)([^\\^=]{0,}")/
+    raw_list_reg = []
 
-      },
-      'double_qoute': {
-        'value': '"',
-        "reg_start_match": /^"/,
-        "search_match": /(')(.*?)([^\\^=]{0,}')/
+    for key, _ in row[:ref][raw_type]
 
-      }
-    }
+      raw_list_reg.append(key.to_s)
+    end
 
-    return unless qoute_type.key?(@ext_config.to_sym)
+    return unless raw_list_reg.count.positive?
 
-    reg_allow_comment = %r{/{2,}\s{0,}(:format_except)\b}
-    reg_allow_comment = /\#\s{0,}(:format_except)\b/ if ['.py', '.rb'].index @ext_content.ext_name
-
+    reg_str = "\{@(#{raw_list_reg.join('|')})@\}"
     count = 1
-    reg_a = qoute_type[@ext_config.to_sym][:search_match]
-    for line in @ext_content.read_line
-      string_line = StringPerLine.new(line.to_s)
-      group_word_encode = string_line.replace_group_word_encode
+    for key in row_data
 
-      match1 = group_word_encode.scan(reg_a)
+      match1 = key.scan(Regexp.new(reg_str))
+      for keym in match1
+        keym_content = row[:ref][raw_type][keym[0]].to_s
 
-      if !match1.empty? && group_word_encode.to_s.scan(%r{(/)(.*?)(/)}).to_a.empty? && group_word_encode.to_s.scan(reg_allow_comment).to_a.empty?
-        str_rep = group_word_encode.to_s.clone.gsub!(reg_a) do |m|
-          m.to_s.gsub(/^['"]/,
-                      qoute_type[@ext_config.to_sym][:value]).to_s.gsub(/['"]$/,qoute_type[@ext_config.to_sym][:value])
-        end
-        valid_counter = 0
+        count_reg_allowed = keym_content.to_s.scan(reg_allowed)
 
-        for mv in match1
-          valid_counter += 1 if mv[0].match(qoute_type[@ext_config.to_sym][:reg_start_match])
-        end
-        if valid_counter != match1.count
-          template_msg = format('file literal string is invalid %<count>s, use the `%<literal>s`',
-                                count: count,
-                                literal: @ext_config)
-          @ext_log.append(template_msg)
-        end
+        next unless count_reg_allowed.to_a.empty?
+
+        monitor_lang(count, keym_content)
+
       end
       count += 1
     end
@@ -91,5 +68,22 @@ class StringLiteral < CodeScanInterface
     @ext_name = name
     @ext_content = content
     @ext_log = log
+  end
+
+  private
+
+  def monitor_lang(count, content)
+    is_validated = true
+    if ['.rb'].index @ext_content.ext_name
+      reg_str =  /\#\{(.*?)\}/
+      scan_count = content.scan(reg_str)
+
+      is_validated = false if scan_count.count.positive?
+    end
+
+    return unless is_validated
+
+    template_msg = "file literal string is invalid #{count}, use the #{@ext_config}"
+    @ext_log.append(template_msg)
   end
 end

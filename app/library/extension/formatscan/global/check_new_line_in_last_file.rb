@@ -26,7 +26,7 @@ class CheckNewLineInCode < CodeScanInterface
     msg_data = format('file has no newline found')
     @is_error = true
     @ext_log.append(msg_data)
-    @ext_content.append_read_line("\n") # :format_except
+    @ext_content.append_read_line("\n")
   end
 
   def set_data(name, content, log)

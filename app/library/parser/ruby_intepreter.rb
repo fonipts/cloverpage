@@ -32,7 +32,7 @@ class RubyInterpreter < CodeInterpreterInterface
   def strip_imports
     require_relative_regexp = /require_relative\s{1,}(.*?)\s{0,}\n/
     require_regexp = /require\s{1,}(.*?)\s{0,}\n/
-    line = @read_file.read_line.join("\n") # :format_except
+    line = @read_file.read_line.join("\n")
     str_rep = line.to_s.gsub!(require_relative_regexp) do |m|
       @imports.append({
                         'class_func': '-',
@@ -57,7 +57,7 @@ class RubyInterpreter < CodeInterpreterInterface
   end
 
   def strip_class_function
-    lines = @content.split("\n") # :format_except
+    lines = @content.split("\n")
     class_regexp = /class\s{1,}([a-zA-Z0-9_]{1,})?(<[a-zA-Z0-9_.]{1,})?/
     for line in lines
       scan_class = line.scan(class_regexp)
