@@ -18,13 +18,13 @@ class StringLiteral < CodeScanInterface
       'single_qoute': {
         'value': '\'',
         "reg_start_match": /^'/,
-        "search_match": /(")(.*?)([^\\^=]")/
+        "search_match": /(")(.*?)([^\\^=]{0,}")/
 
       },
       'double_qoute': {
         'value': '"',
         "reg_start_match": /^"/,
-        "search_match": /(')(.*?)([^\\^=]')/
+        "search_match": /(')(.*?)([^\\^=]{0,}')/
 
       }
     }
@@ -45,8 +45,7 @@ class StringLiteral < CodeScanInterface
       if !match1.empty? && group_word_encode.to_s.scan(%r{(/)(.*?)(/)}).to_a.empty? && group_word_encode.to_s.scan(reg_allow_comment).to_a.empty?
         str_rep = group_word_encode.to_s.clone.gsub!(reg_a) do |m|
           m.to_s.gsub(/^['"]/,
-                      qoute_type[@ext_config.to_sym][:value]).to_s.gsub(/['"]$/,
-                                                                        qoute_type[@ext_config.to_sym][:value])
+                      qoute_type[@ext_config.to_sym][:value]).to_s.gsub(/['"]$/, qoute_type[@ext_config.to_sym][:value])
         end
         valid_counter = 0
 
@@ -54,7 +53,6 @@ class StringLiteral < CodeScanInterface
           valid_counter += 1 if mv[0].match(qoute_type[@ext_config.to_sym][:reg_start_match])
         end
         if valid_counter != match1.count
-          @ext_content.modify_read_line(count - 1, string_line.replace_group_word_decode(str_rep))
           template_msg = format('file literal string is invalid %<count>s, use the `%<literal>s`',
                                 count: count,
                                 literal: @ext_config)

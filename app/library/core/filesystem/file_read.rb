@@ -9,7 +9,7 @@ class FileRead
   def init_read_file
     @list_content = []
     @clone_list_content = []
-    f = File.open(@filename, 'r')
+    f = File.open(@filename, 'r:UTF-8')
 
     f.each_line do |line|
       @list_content.append(line)
