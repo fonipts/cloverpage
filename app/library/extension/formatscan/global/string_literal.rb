@@ -19,18 +19,20 @@ class StringLiteral < CodeScanInterface
     regexp_double_qoute = /(["]{1})(.*?)(["]{1})/
     puts @ext_name
     readline = @ext_content.read_line.join("")
-    capt = []
+    capt_single = []
+    capt_double = []
     readline = readline.to_s.gsub(regexp_single_qoute) do |m|
-      capt.append(m)
+      capt_single.append(m)
       "!!!!"
     end
     readlineto_s = readline.clone.to_s
     readline1 = readlineto_s.gsub(regexp_double_qoute) do |m|
-      capt.append(m)
+      capt_double.append(m)
       "!!!!"
     end
-    p capt
-    puts capt.count
+    p capt_single
+    p capt_double
+    puts capt_single.count+capt_double.count
     #p readline.scan(regexp_single_qoute)
     #puts "-----"
     #p readline.scan(regexp_double_qoute)
