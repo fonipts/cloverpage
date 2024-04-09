@@ -1,6 +1,7 @@
 require_relative '../../../config/supported_language'
 require_relative '../filesystem/scan_file'
 require_relative '../filesystem/file_read'
+require 'colorize'
 
 class ReviewProject
   def initialize(data, log_class, global_class, config_name)
@@ -32,11 +33,10 @@ class ReviewProject
 
   def load_project_scan(data, config_name)
     local_name = data['project']['name']
-    local_description = data['project']['description']
+    data['project']['description']
     local_language = data['project']['language']
     local_include = data['project']['include']
-    @log_class.project_name(local_name)
-
+    puts "project: #{local_name.green}"
     if data['project'].key?(config_name)
       for name in data['project'][config_name]
 
@@ -87,7 +87,6 @@ class ReviewProject
           end
         end
       end
-      @log_class.file_name(file)
 
       for key, _ in global_class_clone
 
@@ -96,11 +95,11 @@ class ReviewProject
 
         if global_class_clone.count == countr
           file_read.init_write_file if @is_write
+          @log_class.error_show_per_file(file)
           read_file(files, dirs, config_name, local_language, get_respected_class)
         end
         countr += 1
       end
-
     else
       scan_files(dirs, config_name, local_language)
     end

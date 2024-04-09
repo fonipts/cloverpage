@@ -19,7 +19,7 @@ class Bootloader
 
   def verify_command
     if @default_arg_list.count.zero?
-      raise ExceptionConfigFile.new('Empty command, please specify your command or run `help`')
+      raise ExceptionConfigFile, 'Empty command, please specify your command or run `help`'
     end
 
     @command_key = @default_arg_list[0].to_sym
@@ -27,21 +27,21 @@ class Bootloader
 
     app_dir = Dir.pwd
     config_filename = File.join(app_dir, AppDefaultVaribles.default_filename_with_extname)
-    raise ExceptionConfigFile.new(ErrorVaribles.config_file_notfund) unless File.file?(config_filename)
+    raise ExceptionConfigFile, ErrorVaribles.config_file_notfund unless File.file?(config_filename)
 
     file = File.open(config_filename)
-    @get_config_api = YAML.load(file.read)
+    @get_config_api = YAML.safe_load(file.read)
 
     verify = VerifyContent.new(@get_config_api)
     verify.init_config
 
-    raise ExceptionConfigFile.new(verify.error_message) if verify.is_error
+    raise ExceptionConfigFile, verify.error_message if verify.is_error
 
-    @command_list = raw_command_list[1..-1]
+    @command_list = raw_command_list[1..]
 
     return if CustomCommand.global_list_command.key?(@command_key)
 
-    raise ExceptionConfigFile.new('No command found at `' + @command_key.to_s + '` or run `help` to see available command')
+    raise ExceptionConfigFile, 'No command found at `#{@command_key}` or run `help` to see available command'
   end
 
   def loader

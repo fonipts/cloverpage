@@ -16,6 +16,19 @@ class InvalidScriptPython < CodeScanInterface
   def read
     return unless @ext_config
 
+    invalid_import
+    invalid_newline_bracket
+  end
+
+  def set_data(name, content, log)
+    @ext_name = name
+    @ext_content = content
+    @ext_log = log
+  end
+
+  private
+
+  def invalid_import
     cls = PythonInterpreter.new
     cls.set_data('', @ext_content, '')
     cls.execute
@@ -25,32 +38,30 @@ class InvalidScriptPython < CodeScanInterface
       self_regexp = /\s{0,}(Self)\s{0,}/
       scan_class = k[:class_func].scan(self_regexp)
 
-      next unless scan_class.count > 0
+      next unless scan_class.count.positive?
 
       template_msg = format('file has invalid `from typing import Self`,
-         please use the standard `from typing_extensions import Self  # type: ignore`') # :format_except
+          please use the standard `from typing_extensions import Self  # type: ignore`') # :format_except
       @ext_log.append(template_msg)
     end
+  end
 
-    newline1_regexp = /=\s{0,}(\[[\n\s]{0,}\()(.*?)(\][\n\s]{0,}\))\s{0,}/
+  def invalid_newline_bracket
+    newline1_regexp = /= \s{0,}(\[[\n\s\t]{0,}\()(.*?)(\][\n\s\t]{0,}\))/
     scan_newline1 = @ext_content.read_line.to_s.scan(newline1_regexp)
 
-    return unless scan_newline1.count > 0
+    return unless scan_newline1.count.positive?
 
     for s1 in scan_newline1
       newline_sub_regexp = /(\\n)/
       newline_string = s1[1].to_s.scan(newline_sub_regexp)
-      if newline_string.count > 0
+      newline_sub_regexp1 = /^([a-zA-Z]{1,}\.)/
+      newline_string1 = s1[1].to_s.scan(newline_sub_regexp1)
+      if newline_string.count.positive? || newline_string1.count.positive?
         template_msg = format('file has do not use `[( `)] for new line is not required to use')
         @ext_log.append(template_msg)
       end
 
     end
-  end
-
-  def set_data(name, content, log)
-    @ext_name = name
-    @ext_content = content
-    @ext_log = log
   end
 end

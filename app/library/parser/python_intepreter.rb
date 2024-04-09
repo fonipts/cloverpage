@@ -84,7 +84,7 @@ class PythonInterpreter < CodeInterpreterInterface
       #   'inherit': scan_class[0][1],
       #   'row': count
       # }
-      elsif count_scan == 0 && class_name_str != ''
+      elsif count_scan.zero? && class_name_str != ''
 
         #    puts count_scan
         #    puts count

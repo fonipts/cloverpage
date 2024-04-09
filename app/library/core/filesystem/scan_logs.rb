@@ -2,45 +2,33 @@ require 'colorize'
 
 class ScanLogs
   def initialize
-    @logs = {}
     @project_name = ''
     @file_name = ''
     @error_count = 0
-  end
-
-  def project_name(data)
-    @project_name = data
-    return if @logs.key?(data)
-
-    @logs[@project_name] = {}
-  end
-
-  def file_name(data)
-    @file_name = data
+    @error_per_file = []
   end
 
   def append(data)
-    @logs[@project_name][@file_name] = [] unless @logs[@project_name].key?(@file_name)
-    @logs[@project_name][@file_name].append(data)
+    @error_per_file.append(data)
     @error_count += 1
   end
 
-  def error_show_log
-    for name, values in @logs
-
-      puts 'project: ' + name.green
-      if values.empty?
-        puts 'No error or warning has found'.yellow
-      else
-        for name_s, val_s in values
-          puts name_s.blue
-          for val in val_s
-            puts '    ' + val.red
-          end
-        end
+  def error_show_per_file(name)
+    unless @error_per_file.empty?
+      puts name.yellow
+      for val in @error_per_file
+        puts "    #{val.red}"
       end
     end
+
+    @error_per_file = []
   end
 
-  attr_reader :logs, :error_count
+  def error_show_log
+    return unless @error_count.zero?
+
+    puts 'No error or warning has found'.yellow
+  end
+
+  attr_reader :error_per_file, :error_count
 end

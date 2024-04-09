@@ -45,7 +45,7 @@ class StringLiteral < CodeScanInterface
       if !match1.empty? && group_word_encode.to_s.scan(%r{(/)(.*?)(/)}).to_a.empty? && group_word_encode.to_s.scan(reg_allow_comment).to_a.empty?
         str_rep = group_word_encode.to_s.clone.gsub!(reg_a) do |m|
           m.to_s.gsub(/^['"]/,
-                      qoute_type[@ext_config.to_sym][:value]).to_s.gsub(/['"]$/, qoute_type[@ext_config.to_sym][:value])
+                      qoute_type[@ext_config.to_sym][:value]).to_s.gsub(/['"]$/,qoute_type[@ext_config.to_sym][:value])
         end
         valid_counter = 0
 

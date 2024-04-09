@@ -1,6 +1,8 @@
 require_relative '../../../interface/code_scan'
 require_relative '../../../utility/string_per_line'
 
+ALLOW_SIGN = ['/=']
+
 class CheckExtraSpaceInCode < CodeScanInterface
   def initialize
     @ext_name = ''
@@ -47,9 +49,11 @@ class CheckExtraSpaceInCode < CodeScanInterface
         str_rep = group_word_encode.to_s.gsub!(reg_a2) do |_m|
           ' ' + Regexp.last_match(2) + ' '
         end
-        @ext_content.modify_read_line(count - 1, string_line.replace_group_word_decode(str_rep))
-        template_msg = format('file has ` %<sign>s ` has no equal spacing %<count>s', count: count, sign: match2[2])
-        @ext_log.append(template_msg)
+        unless ALLOW_SIGN.include?(match2[2].to_s)
+          @ext_content.modify_read_line(count - 1, string_line.replace_group_word_decode(str_rep))
+          template_msg = format('file has ` %<sign>s ` has no equal spacing %<count>s', count: count, sign: match2[2])
+          @ext_log.append(template_msg)
+        end
       end
       count += 1
     end

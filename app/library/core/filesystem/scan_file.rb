@@ -31,7 +31,6 @@ class ScanFile
   end
 
   def get_files(path, is_root)
-    dir_count = 0
     path_join = if is_root
                   get_dir_path(path)
                 else

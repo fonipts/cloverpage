@@ -13,12 +13,9 @@ class TestCheckTrailingSpaceInCode < Test::Unit::TestCase
     scan_logs = ScanLogs.new
     file_read = FileRead.new(config_filename)
     file_read.init_read_file
-    scan_logs.project_name('local_name')
-    scan_logs.file_name(config_filename)
     cls.set_data(config_filename, file_read, scan_logs)
     cls.read
-    assert_equal(scan_logs.logs.key?('local_name'), true)
-    assert_equal(scan_logs.logs['local_name'].key?(config_filename), false)
+    assert_equal(scan_logs.error_per_file, [])
   end
 
   def test_failure
@@ -30,12 +27,8 @@ class TestCheckTrailingSpaceInCode < Test::Unit::TestCase
     scan_logs = ScanLogs.new
     file_read = FileRead.new(config_filename)
     file_read.init_read_file
-    scan_logs.project_name('local_name')
-    scan_logs.file_name(config_filename)
     cls.set_data(config_filename, file_read, scan_logs)
     cls.read
-    assert_equal(scan_logs.logs.key?('local_name'), true)
-    assert_equal(scan_logs.logs['local_name'].key?(config_filename), true)
-    assert_equal(scan_logs.logs['local_name'][config_filename], ['file has trail white space at line 1'])
+    assert_equal(scan_logs.error_per_file, ['file has trail white space at line 1'])
   end
 end

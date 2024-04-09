@@ -80,7 +80,7 @@ class VerifyContent
               next if LangugeExt.langExtList.key?(lang.to_sym)
 
               @is_error = true
-              @error_message = '`' + lang + '` is acceptable language'
+              @error_message = "`#{lang}` is acceptable language"
               break
             end
 
@@ -97,7 +97,7 @@ class VerifyContent
 
     else
       @is_error = true
-      @error_message = 'Your `' + AppDefaultVaribles.default_filename_with_extname + '` is empty, please check'
+      @error_message = "Your `#{AppDefaultVaribles.default_filename_with_extname}` is empty, please check"
     end
   end
 end
