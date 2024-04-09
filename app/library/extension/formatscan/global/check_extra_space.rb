@@ -46,7 +46,7 @@ class CheckExtraSpaceInCode < CodeScanInterface
 
         msg = line
         str_rep = group_word_encode.to_s.gsub!(reg_a2) do |_m|
-          ' ' + Regexp.last_match(2) + ' '
+          " #{Regexp.last_match(2)} "
         end
         unless ALLOW_SIGN.include?(match2[2].to_s)
           @ext_content.modify_read_line(count - 1, string_line.replace_group_word_decode(str_rep))

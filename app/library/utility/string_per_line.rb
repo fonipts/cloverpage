@@ -5,13 +5,11 @@ class StringPerLine
 
   def count_first_space
     lines = @data.gsub(/\n/, '').split('')
-    reg_a = /\s{1,}\n/
     non_stop = true
     counter = 0
     for line in lines
-      reg_line = line.scan(reg_a)
       if non_stop == true && (line != ' ')
-        non_stop = false # :format_except
+        non_stop = false
       end
       counter += 1 if non_stop
     end
@@ -52,7 +50,7 @@ class StringPerLine
     for group_word in group_words
       reg_group_word = group_word.scan(reg_a)
       if reg_group_word.empty?
-        rows = rows.gsub(group_word, '#@' + count.to_s + '@#') # :format_except
+        rows = rows.gsub(group_word, "#@#{count}@#") # :format_except
         count += 1
       end
 

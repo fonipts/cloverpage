@@ -16,8 +16,6 @@ class CheckIndentPerLine < CodeScanInterface
   def read
     return unless @ext_config.positive?
 
-    reg_comment = /^\s{0,}([*\\\#])/
-
     count = 1
     indent_count = 0
     base_number = 0
@@ -25,7 +23,6 @@ class CheckIndentPerLine < CodeScanInterface
       string_line = StringPerLine.new(line.to_s)
       count_scan = string_line.count_first_space
 
-      match_reg_comment = line.match(reg_comment)
       base_number = (indent_count / @ext_config) * @ext_config
 
       is_not_valid = false
