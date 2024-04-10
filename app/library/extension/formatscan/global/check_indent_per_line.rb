@@ -16,6 +16,18 @@ class CheckIndentPerLine < CodeScanInterface
   def read
     return unless @ext_config.positive?
 
+    default_indent_all_type
+  end
+
+  def set_data(name, content, log)
+    @ext_name = name
+    @ext_content = content
+    @ext_log = log
+  end
+
+  private
+
+  def default_indent_all_type
     count = 1
     indent_count = 0
     base_number = 0
@@ -36,11 +48,5 @@ class CheckIndentPerLine < CodeScanInterface
       indent_count = count_scan
       count += 1
     end
-  end
-
-  def set_data(name, content, log)
-    @ext_name = name
-    @ext_content = content
-    @ext_log = log
   end
 end

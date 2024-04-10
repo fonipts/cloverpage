@@ -8,9 +8,7 @@ class StringPerLine
     non_stop = true
     counter = 0
     for line in lines
-      if non_stop == true && (line != ' ')
-        non_stop = false
-      end
+      non_stop = false if non_stop == true && (line != ' ')
       counter += 1 if non_stop
     end
     counter = 0 if non_stop

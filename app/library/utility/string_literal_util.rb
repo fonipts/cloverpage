@@ -9,10 +9,12 @@ class StringLiteralUtil
 
   def endode_string_literal(type)
     if type == 'single_qoute'
+      strip_dobule_slash('double_qoute')
       strip_single_qoute
       strip_double_qoute
     end
     if type == 'double_qoute'
+      strip_dobule_slash('single_qoute')
       strip_double_qoute
       strip_single_qoute
     end
@@ -27,6 +29,24 @@ class StringLiteralUtil
 
   private
 
+  def strip_dobule_slash(type)
+    regexp_qoute = %r{(/{1})(.*)(/{1})}
+    @ref[type] = {}
+    readline = @data.clone.to_s.gsub(regexp_qoute) do |m|
+      idq = uniqid(20)
+      reg_str = "\{@(#{@list_uniqid.join('|')})@\}"
+      match_exist_count = m.to_s.scan(Regexp.new(reg_str))
+      if match_exist_count.count.zero?
+        @list_uniqid.append(idq)
+        @ref[type][idq] = m.to_s
+        "{@#{idq}@}"
+      else
+        m.to_s
+      end
+    end
+    @data = readline
+  end
+
   def strip_single_qoute
     regexp_qoute = /('{1})(.*)('{1})/
     @ref['single_qoute'] = {}
@@ -34,7 +54,7 @@ class StringLiteralUtil
       idq = uniqid(20)
       reg_str = "\{@(#{@list_uniqid.join('|')})@\}"
       match_exist_count = m.to_s.scan(Regexp.new(reg_str))
-      if match_exist_count.count == 0
+      if match_exist_count.count.zero?
         @list_uniqid.append(idq)
         @ref['single_qoute'][idq] = m.to_s
         "{@#{idq}@}"
@@ -46,13 +66,13 @@ class StringLiteralUtil
   end
 
   def strip_double_qoute
-    regexp_qoute = /(\"{1})(.*?)(\"{1})/
+    regexp_qoute = /("{1})(.*?)("{1})/
     @ref['double_qoute'] = {}
     readline = @data.clone.to_s.gsub(regexp_qoute) do |m|
       idq = uniqid(20)
       reg_str = "\{@(#{@list_uniqid.join('|')})@\}"
       match_exist_count = m.to_s.scan(Regexp.new(reg_str))
-      if match_exist_count.count == 0
+      if match_exist_count.count.zero?
         @list_uniqid.append(idq)
         @ref['double_qoute'][idq] = m.to_s
         "{@#{idq}@}"

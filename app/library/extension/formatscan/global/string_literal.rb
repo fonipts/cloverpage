@@ -83,6 +83,7 @@ class StringLiteral < CodeScanInterface
 
     return unless is_validated
 
+    puts content
     template_msg = "file literal string is invalid #{count}, use the #{@ext_config}"
     @ext_log.append(template_msg)
   end

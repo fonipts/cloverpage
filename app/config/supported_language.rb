@@ -19,8 +19,9 @@ module LangugeExt
     'ruby': 'rb',
     'dart': 'dart',
     'javascript': 'js',
-    'typescript': 'ts',
     'javascriptx': 'jsx',
+    'json': 'json',
+    'typescript': 'ts',
     'typescriptx': 'tsx',
     'yaml': 'yaml'
   }
