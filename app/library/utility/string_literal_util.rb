@@ -4,6 +4,7 @@ class StringLiteralUtil
   def initialize(data)
     @data = data
     @ref = {}
+    @list_uniqid = []
   end
 
   def endode_string_literal(type)
@@ -31,8 +32,15 @@ class StringLiteralUtil
     @ref['single_qoute'] = {}
     readline = @data.clone.to_s.gsub(regexp_qoute) do |m|
       idq = uniqid(20)
-      @ref['single_qoute'][idq] = m.to_s
-      "{@#{idq}@}"
+      reg_str = "\{@(#{@list_uniqid.join('|')})@\}"
+      match_exist_count = m.to_s.scan(Regexp.new(reg_str))
+      if match_exist_count.count == 0
+        @list_uniqid.append(idq)
+        @ref['single_qoute'][idq] = m.to_s
+        "{@#{idq}@}"
+      else
+        m.to_s
+      end
     end
     @data = readline
   end
@@ -42,8 +50,15 @@ class StringLiteralUtil
     @ref['double_qoute'] = {}
     readline = @data.clone.to_s.gsub(regexp_qoute) do |m|
       idq = uniqid(20)
-      @ref['double_qoute'][idq] = m.to_s
-      "{@#{idq}@}"
+      reg_str = "\{@(#{@list_uniqid.join('|')})@\}"
+      match_exist_count = m.to_s.scan(Regexp.new(reg_str))
+      if match_exist_count.count == 0
+        @list_uniqid.append(idq)
+        @ref['double_qoute'][idq] = m.to_s
+        "{@#{idq}@}"
+      else
+        m.to_s
+      end
     end
     @data = readline
   end

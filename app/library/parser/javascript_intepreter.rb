@@ -31,7 +31,7 @@ class JavascriptInterpreter < CodeInterpreterInterface
   def strip_imports
     from_regexp = /from\s{1,}(.*?)\s{1,}import\s{1,}(.*?)\n/
     import_regexp = /import\s{1,}(.*?)\n/
-    line = @read_file.read_line.join("\n") # :format_except
+    line = @read_file.read_line.join("\n")
     str_rep = line.to_s.gsub!(from_regexp) do |m|
       @imports.append({
                         'class_func': ::Regexp.last_match(2),
