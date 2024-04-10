@@ -72,9 +72,9 @@ class InvalidScriptPython < CodeScanInterface
   def check_data(content)
     is_validated = true
     words_split  = content.split(',')
-    check_literal_regexp = /^([\"\']{1})/
+    check_literal_regexp = /^([\\]{1}["']{1})/
     for word in words_split
-      word_count = word.to_s.scan(newline_sub_regexp1)
+      word_count = word.to_s.scan(check_literal_regexp)
       is_validated = false if word_count.count
     end
     is_validated
