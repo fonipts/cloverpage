@@ -58,10 +58,25 @@ class InvalidScriptPython < CodeScanInterface
       newline_sub_regexp1 = /^([a-zA-Z]{1,}\.)/
       newline_string1 = s1[1].to_s.scan(newline_sub_regexp1)
       if newline_string.count.positive? || newline_string1.count.positive?
-        template_msg = format('file has do not use `[( `)] for new line is not required to use')
-        @ext_log.append(template_msg)
+        if check_data(s1[1])
+          template_msg = format('file has do not use `[( )]` for new line is not required to use')
+          @ext_log.append(template_msg)
+        end
       end
 
     end
+  end
+
+  private
+
+  def check_data(content)
+    is_validated = true
+    words_split  = content.split(',')
+    check_literal_regexp = /^([\"\']{1})/
+    for word in words_split
+      word_count = word.to_s.scan(newline_sub_regexp1)
+      is_validated = false if word_count.count
+    end
+    is_validated
   end
 end
