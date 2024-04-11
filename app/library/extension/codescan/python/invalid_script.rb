@@ -63,7 +63,6 @@ class InvalidScriptPython < CodeScanInterface
           @ext_log.append(template_msg)
         end
       end
-
     end
   end
 

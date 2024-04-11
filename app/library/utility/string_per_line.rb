@@ -22,19 +22,16 @@ class StringPerLine
     temp_chars = []
     temp_key_char = ''
     for row in rows
-
       temp_chars.append(row) if temp_key_char != '' && row != temp_key_char
       reg_row = row.scan(reg_a)
       unless reg_row.empty?
         if row == temp_key_char
-
           record_word.append(temp_chars.join(''))
           temp_chars = []
           temp_key_char = ''
         elsif temp_key_char == ''
           temp_key_char = row
         end
-
       end
     end
     record_word
@@ -48,12 +45,10 @@ class StringPerLine
     for group_word in group_words
       reg_group_word = group_word.scan(reg_a)
       if reg_group_word.empty?
-        rows = rows.gsub(group_word, "#@#{count}@#") # :format_except
+        rows = rows.gsub(group_word, "#@#{count}@#")
         count += 1
       end
-
     end
-
     rows
   end
 
@@ -62,10 +57,9 @@ class StringPerLine
     group_words = get_group_word_qoute
     count = 1
     for group_word in group_words
-      rows = rows.gsub("#@#{count}@#", group_word) # :format_except
+      rows = rows.gsub("#@#{count}@#", group_word)
       count += 1
     end
-
     rows
   end
 end
