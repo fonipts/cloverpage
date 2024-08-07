@@ -12,10 +12,16 @@ class CheckExtraSpaceInCode < CodeScanInterface
   end
 
   def default_value(value); end
-
+  
   def read
     return unless @ext_config
+    if ['.yaml'].index @ext_content.ext_name
 
+    else 
+      valid_code 
+    end  
+  end
+  def valid_code
     reg_a1 = /(\s{0,})(!{0,1}={2,}|[!<>]{1}={1})(\s{0,})/
     reg_a2 = %r{(\s{0,})([/*\-+]={1,})(\s{0,})}
     reg_a21 = %r{^\s{0,}([/*-+])}
