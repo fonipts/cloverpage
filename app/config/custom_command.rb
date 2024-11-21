@@ -1,6 +1,6 @@
-require_relative '../execute/format'
-require_relative '../execute/lint'
-require_relative '../execute/help'
+require_relative '../command/action/format'
+require_relative '../command/action/help'
+require_relative '../command/action/lint'
 
 module CustomCommand
   @global_list_command = {

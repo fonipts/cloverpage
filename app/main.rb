@@ -1,4 +1,4 @@
-require_relative './library/bootloader'
+require_relative './command/bootloader'
 
 require 'fileutils'
 
