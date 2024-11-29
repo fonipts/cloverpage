@@ -19,7 +19,7 @@ class ReadFile
     f_line = File.open(@file_loc, 'r:UTF-8')
     f_line.each_line do |line|
       cnvt = EnTokenStr.new(line)
-      puts cnvt.convert
+      # puts cnvt.convert
 
       @list_content.append(cnvt.convert)
     end

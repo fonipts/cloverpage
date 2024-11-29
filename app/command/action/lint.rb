@@ -3,7 +3,7 @@ require_relative '../../config/custom_command'
 require_relative '../../support/exception/exception_config_file'
 require_relative '../../core/process/scan_project'
 require_relative '../../support/schema/verify_scan_variable'
-require_relative '../../core/filesystem/scan_logs'
+require_relative '../../core/filesystem/cache/scan_logs'
 
 require 'colorize'
 

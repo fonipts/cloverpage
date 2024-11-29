@@ -41,7 +41,6 @@ class SpacesInCodes < CodeScanInterface
   def meth_trail_space
     # puts scan_struct.scan_name+"@@"
     # scan_struct
-    puts @var_read_filename
     puts '::meth_trail_space::'
   end
 end

@@ -22,9 +22,9 @@ class VerifyGlobPath
     @is_valid_glob = true if match1
 
     @glob_path = if @is_valid_glob == true
-      @dir.gsub(/[*?]{0,}\.(\{[a-zA-Z,]{1,}\}|[a-zA-Z,]{1,})/, '**')
-      else
-        File.join(@dir, '**')
-      end
+                   @dir.gsub(/[*?]{0,}\.(\{[a-zA-Z,]{1,}\}|[a-zA-Z,]{1,})/, '**')
+                 else
+                   File.join(@dir, '**')
+                 end
   end
 end

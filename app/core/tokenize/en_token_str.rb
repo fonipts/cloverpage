@@ -6,7 +6,6 @@ class EnTokenStr
   end
 
   def convert
-    # p TokenChar.token_list
     raw_char = []
 
     @content.split('') do |char|
@@ -19,11 +18,8 @@ class EnTokenStr
 
         is_update = true
       end
-      if is_update == false
+      raw_char.append(char) if is_update == false
 
-        raw_char.append(char)
-
-      end
     end
 
     raw_char.join('')

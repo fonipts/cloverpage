@@ -20,7 +20,7 @@ class ScanFilesProject
     return if @exlude_dir.index folder
 
     @callback.call(folder, File.extname(folder).gsub(/^\./, '')) if File.file?(folder)
-    for val in Dir.glob(folder_glob + '/**')
+    for val in Dir.glob("#{folder_glob}/**")
       if File.directory?(val) && !is_glob
         recursive_files(val, folder, false)
       else

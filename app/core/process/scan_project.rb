@@ -5,12 +5,13 @@ require_relative '../../config/supported_language'
 require 'fileutils'
 
 class ScanProject
-  def initialize(proj_dir, ext_file, dir_include, dir_exclude, logs, _actions)
+  def initialize(proj_dir, ext_file, dir_include, dir_exclude, logs, actions)
     @proj_dir = proj_dir
     @ext_file = ext_file
     @dir_include = dir_include
     @dir_exclude = dir_exclude
     @logs = logs
+    @action_list = actions
   end
 
   def scan_file
@@ -25,7 +26,6 @@ class ScanProject
     end
 
     for val in @dir_include
-      # puts File.join(@proj_dir, val)
       scans = ScanFilesProject.new(File.join(@proj_dir, val), list_ext, list_exclude, method(:callback_read))
       scans.scan
     end
@@ -33,8 +33,10 @@ class ScanProject
 
   def callback_read(file, _ext)
     read_f = ReadFile.new(file)
-    read_f.read_token
-    puts file
-    puts ':::'
+
+    for val_act in @action_list
+      val_act.read_filename(file)
+      val_act.read_filecontent(read_f)
+    end
   end
 end

@@ -3,8 +3,9 @@ require_relative '../../config/custom_command'
 require_relative '../../support/exception/exception_config_file'
 require_relative '../../core/process/scan_project'
 require_relative '../../support/schema/verify_scan_variable'
-require_relative '../../core/filesystem/scan_logs'
-
+require_relative '../../core/filesystem/cache/scan_logs'
+require_relative '../../config/formatscan'
+require_relative '../../support/schema/ext_struct_config'
 require 'colorize'
 
 require 'fileutils'
@@ -21,10 +22,20 @@ class FormatCommand < CommandInitiateInterface
   def execute
     validate
     p @raw_data['format']
+    p FormatExt.get_method
+
     logs = ScanLogs.new(@proj_dir)
+    ext_struct_config = ExtStructConfig.new(@raw_data['format'], FormatExt.get_method)
+    ext_data = ext_struct_config.pass_command_var
+
+    puts '===='
+    p ext_data
+    # for val in ext_data
+    #  val.pass_arg("goal")
+    # end
 
     scan_project = ScanProject.new(@proj_dir, @raw_data['language'], @raw_data['directory']['include'], @raw_data['directory']['exclude'],
-                                   logs, [])
+                                   logs, ext_data)
     scan_project.scan_file
   end
 
