@@ -7,29 +7,32 @@ scans:
      lint:
         disable: []
         config: []
-        #- file_line_limit : 200
-        #- check_new_line_in_last_file : true 
-        #- max_newline_limit : 1
      format:
-        disable: []
+        #disable: 
+        # - qoute_type
         config:
-        - check_trailing_space : true 
+        - row_char_limit : 150
+        - qoute_type: single
      directory:
          include:
-         - 'app/config/codescan.rb'
+         - 'app/**'
          #- 'test'
          exclude: [] 
-         #- 'app/config'
-  #- project:
-  #   name: scan_ss
-  #   description: Scanning the project
-  #   language: 
-  #    - ruby
-  #   lint_config:
-  #    - file_line_limit : 200
-  #    - check_new_line_in_last_file : true 
-  #    - max_newline_limit : 1
-  #   format_config:
-  #    - check_trailing_space : true 
-  #   include:
-  #    - 'app'     
+  - project:
+     name: test
+     description: Scanning the project
+     language: 
+      - ruby
+     lint:
+        disable: []
+        config: []
+     format:
+      #  disable: 
+      #   - qoute_type
+        config:
+        - row_char_limit : 200
+     directory:
+         include:
+         - 'test/**'
+         #- 'test'
+         exclude: [] 

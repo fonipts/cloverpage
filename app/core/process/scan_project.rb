@@ -12,6 +12,11 @@ class ScanProject
     @dir_exclude = dir_exclude
     @logs = logs
     @action_list = actions
+    @write = false
+  end
+
+  def write_file(val)
+    @write = val
   end
 
   def scan_file
@@ -33,10 +38,11 @@ class ScanProject
 
   def callback_read(file, _ext)
     read_f = ReadFile.new(file)
-
     for val_act in @action_list
+      val_act.logs(@logs.init_record(val_act.var_action_name, file))
       val_act.read_filename(file)
       val_act.read_filecontent(read_f)
     end
+    @logs.print
   end
 end

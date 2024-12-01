@@ -4,7 +4,8 @@ require_relative '../../support/exception/exception_config_file'
 require_relative '../../core/process/scan_project'
 require_relative '../../support/schema/verify_scan_variable'
 require_relative '../../core/filesystem/cache/scan_logs'
-
+require_relative '../../config/codescan'
+require_relative '../../support/schema/ext_struct_config'
 require 'colorize'
 
 require 'fileutils'
@@ -20,12 +21,17 @@ class LintCommand < CommandInitiateInterface
 
   def execute
     validate
-    p @raw_data['lint']
     logs = ScanLogs.new(@proj_dir)
+    ext_struct_config = ExtStructConfig.new(@raw_data['lint'], CodescanExt.get_method)
+    ext_data = ext_struct_config.pass_command_var
 
     scan_project = ScanProject.new(@proj_dir, @raw_data['language'], @raw_data['directory']['include'], @raw_data['directory']['exclude'],
-                                   logs, [])
+                                   logs, ext_data)
     scan_project.scan_file
+
+    return unless logs.count_error == 0
+
+    puts 'No, error found'
   end
 
   def description

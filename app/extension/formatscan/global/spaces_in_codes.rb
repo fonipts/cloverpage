@@ -9,10 +9,7 @@ class SpacesInCodes < CodeScanInterface
     @var_logs = nil
     @var_default_config = nil
     @var_read_filename = nil
-
-    # @@ext_content = nil
-    # @ext_config = true
-    # @ext_log = []
+    @read_token = []
   end
 
   def action_name(value)
@@ -21,9 +18,8 @@ class SpacesInCodes < CodeScanInterface
 
   def read_filecontent(content)
     @var_read_filecontent = content
-
-    send(@ext_name)
-    # cal()
+    @read_token = @var_read_filecontent.read_token
+    send(@ext_name) if @read_token.count > 0
   end
 
   def logs(cls)
@@ -39,9 +35,13 @@ class SpacesInCodes < CodeScanInterface
   end
 
   def meth_trail_space
-    # puts scan_struct.scan_name+"@@"
-    # scan_struct
-    puts @var_read_filename
-    puts '::meth_trail_space::'
+    reg_a = /(\[%:spc%\])\[%:nwl%\]$/
+    for line in @read_token
+      count_scan = line[:content].scan(reg_a)
+
+      @var_logs.record(line[:row], 'Extra trail space found') unless count_scan.to_a.empty?
+
+    end
   end
+  attr_reader :var_action_name
 end

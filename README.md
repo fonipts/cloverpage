@@ -1,5 +1,6 @@
 # Clover page
 ![Cloverpage version][ruby-image]
+[Site](https://cloverpage.codehyouka.xyz/) |
 
 ## Introduction
 The intention of this tool is to scan the code, API traffic and performance of the Web. To have a synchronization tool across different language and platform, that easily maintain by enthusiast at heart.
@@ -19,8 +20,8 @@ cloverpage lint
 The commands must in this format  `cloverpage <Command type>` 
 |Command type | Description| Example |
 |------------- | ------------- | ------------- |
-|format | Format your project | `cloverpage format`|
-|lint | Lint your project | `cloverpage lint`|
+|format | Format your project | `cloverpage format <name>`|
+|lint | Lint your project | `cloverpage lint <name>`|
 |help | See available command for cloverpage | `cloverpage help` |
 
 

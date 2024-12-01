@@ -1,13 +1,11 @@
 require_relative '../../../support/interface/code_scan'
 
-class SpacesInCodes < CodeScanInterface
-  def initialize(name)
-    @ext_name = name
-
+class CheckQouteType < CodeScanInterface
+  def initialize
     @var_action_name = nil
     @var_read_filecontent = nil
     @var_logs = nil
-    @var_default_config = nil
+    @var_default_config = 'double'
     @var_read_filename = nil
 
     # @@ext_content = nil
@@ -22,8 +20,14 @@ class SpacesInCodes < CodeScanInterface
   def read_filecontent(content)
     @var_read_filecontent = content
 
-    send(@ext_name)
-    # cal()
+    for line in @var_read_filecontent.read_strip_qoute
+      row = line[:row]
+      count = 0
+      line[:reference_key].each do |_ob_key, ob_val|
+        count += 1 if ob_val[:type] != @var_default_config.to_s + '_qte_open_close'
+      end
+      @var_logs.record(line[:row], 'Must use `' + @var_default_config.to_s + '` qoute in string') if count > 0
+    end
   end
 
   def logs(cls)
@@ -38,10 +42,5 @@ class SpacesInCodes < CodeScanInterface
     @var_read_filename = data
   end
 
-  def meth_trail_space
-    # puts scan_struct.scan_name+"@@"
-    # scan_struct
-    puts '::meth_trail_space::'
-  end
   attr_reader :var_action_name
 end

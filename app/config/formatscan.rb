@@ -1,14 +1,14 @@
-# require_relative '../library/extension/formatscan/global/check_indent_per_line'
-# require_relative '../library/extension/formatscan/global/check_new_line_in_last_file'
-# require_relative '../library/extension/formatscan/global/check_trailing_space'
-# require_relative '../library/extension/formatscan/global/check_extra_space'
-# require_relative '../library/extension/formatscan/global/string_literal'
 require_relative '../extension/formatscan/global/spaces_in_codes'
+require_relative '../extension/formatscan/global/check_file_limit'
+require_relative '../extension/formatscan/global/check_qoute_type'
 
 module FormatExt
   @get_method = {
     'global': {
-      'trail_whitespace': SpacesInCodes.new('meth_trail_space')
+      'trail_whitespace': SpacesInCodes.new('meth_trail_space'),
+      'max_len': CheckFileLimit.new('meth_max_len'),
+      'row_char_limit': CheckFileLimit.new('meth_row_char_limit'),
+      'qoute_type': CheckQouteType.new
 
     },
     'py': {

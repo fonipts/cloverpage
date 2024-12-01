@@ -1,13 +1,10 @@
-
 module CodescanExt
   @get_method = {
     'global': {
-     # 'trail_whitespace': SpacesInCodes.new('meth_trail_space')
+      # 'trail_whitespace': SpacesInCodes.new('meth_trail_space')
 
     },
-    'py': {
-
-    }
+    'py': {}
   }
 
   def self.get_method
