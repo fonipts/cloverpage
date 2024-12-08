@@ -39,7 +39,7 @@ class ScanProject
 
   def callback_read(file, _ext)
     read_f = ReadFile.new(file)
-    
+
     for val_act in @action_list
       val_act.logs(@logs.init_record(val_act.var_action_name, file))
       val_act.read_filename(file)

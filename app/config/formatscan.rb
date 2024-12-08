@@ -5,6 +5,7 @@ require_relative '../extension/formatscan/global/check_qoute_type'
 module FormatExt
   @get_method = {
     'global': {
+      'eof_newline': SpacesInCodes.new('meth_eof_newline'),
       'trail_whitespace': SpacesInCodes.new('meth_trail_space'),
       'max_len': CheckFileLimit.new('meth_max_len'),
       'row_char_limit': CheckFileLimit.new('meth_row_char_limit'),

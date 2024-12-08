@@ -37,9 +37,9 @@ class ReadFile
           @list_content.delete(ob_key)
         end
       end
- 
+
    end
- 
+
    def modified_row_content(row,content)
     counter = 0
     @list_content.each do |ob_key, ob_val|
@@ -52,9 +52,9 @@ class ReadFile
       counter +=1
     end
 
- 
+
    end
- 
+
    def reference_obj_value
      @reference_obj
    end

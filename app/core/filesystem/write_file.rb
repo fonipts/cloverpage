@@ -17,14 +17,14 @@ class WriteFile
   #    p modify_content.to_s
   #    puts "----"
     end
-    
+
   end
 
-  private 
+  private
   def modify_file(content, attrs)
     begin
       file = File.open(@name, attrs)
-      file.write(content) 
+      file.write(content)
     rescue IOError => e
       #some error occur, dir not writable etc.
     ensure
