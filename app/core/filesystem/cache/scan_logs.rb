@@ -21,7 +21,6 @@ class ScanLogs
     puts "#{@list_error.join("\n")}".red if @list_error.count.positive?
     @count_error += @list_error.clone.count
     @list_error = []
-
   end
-  attr_reader :count_error,:list_error
+  attr_reader :count_error, :list_error
 end

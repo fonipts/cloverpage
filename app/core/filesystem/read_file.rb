@@ -11,6 +11,7 @@ class ReadFile
   def raw_read
     @list_content
   end
+
   def read_token
     @list_content = []
     loader(nil)
@@ -30,34 +31,25 @@ class ReadFile
   end
 
   def delete_row_content(row)
-
-     @list_content.clone.each do |ob_key, ob_val|
-
-        if ob_key[:row] == row
-          @list_content.delete(ob_key)
-        end
-      end
-
-   end
-
-   def modified_row_content(row,content)
-    counter = 0
-    @list_content.each do |ob_key, ob_val|
-
-      if ob_key[:row] == row
-        #
-        ob_key[:content] = content
-        #@list_content[row -1] = ob_key
-      end
-      counter +=1
+    @list_content.clone.each do |ob_key, _ob_val|
+      @list_content.delete(ob_key) if ob_key[:row] == row
     end
+  end
 
+  def modified_row_content(row, content)
+    counter = 0
+    @list_content.each do |ob_key, _ob_val|
+      if ob_key[:row] == row
+        ob_key[:content] = content
+      end
+      counter += 1
+    end
+  end
 
-   end
+  def reference_obj_value
+    @reference_obj
+  end
 
-   def reference_obj_value
-     @reference_obj
-   end
   private
 
   def loader(type)
@@ -91,5 +83,4 @@ class ReadFile
       counter += 1
     end
   end
-
 end

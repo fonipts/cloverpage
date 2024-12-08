@@ -4,7 +4,7 @@ require_relative 'app/config/app'
 
 Gem::Specification.new do |s|
   s.name = 'cloverpage'
-  s.version = AppDefaultVaribles::default_version::STRING
+  s.version = AppDefaultVaribles.default_version::STRING
   s.platform = Gem::Platform::RUBY
   s.required_ruby_version = '>= 2.7.0'
   s.authors = ['Codehyouka']
@@ -23,13 +23,13 @@ Gem::Specification.new do |s|
 
   s.metadata = {
     'homepage_uri' => 'https://cloverpage.codehyouka.xyz/',
-    'changelog_uri' => "https://github.com/fonipts/cloverpage/releases/tag/v#{AppDefaultVaribles::default_version::STRING}",
+    'changelog_uri' => "https://github.com/fonipts/cloverpage/releases/tag/v#{AppDefaultVaribles.default_version::STRING}",
     'source_code_uri' => 'https://github.com/fonipts/cloverpage/',
-    'documentation_uri' => "https://cloverpage.codehyouka.xyz/doc/#changelog_{AppDefaultVaribles::default_version}/",
+    'documentation_uri' => 'https://cloverpage.codehyouka.xyz/doc/#changelog_{AppDefaultVaribles::default_version}/',
     'bug_tracker_uri' => 'https://github.com/fonipts/cloverpage/issues',
     'rubygems_mfa_required' => 'true'
   }
 
-  s.add_dependency('json', '~> 2.3')
   s.add_dependency('colorize', '>= 1.1')
+  s.add_dependency('json', '~> 2.3')
 end

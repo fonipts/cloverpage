@@ -46,15 +46,13 @@ class SpacesInCodes < CodeScanInterface
   end
 
   def meth_eof_newline
-
     reg_a = /(\[%:nwl%\]){1,}$/
-    last_end_file = @read_token[@read_token.length-1]
+    last_end_file = @read_token[@read_token.length - 1]
     count_scan = last_end_file[:content].scan(reg_a)
-    if count_scan.length.zero?
-      @var_logs.record(last_end_file[:row], 'Need to add newline in the code')
-      @var_read_filecontent.modified_row_content(last_end_file[:row], last_end_file[:content].to_s+"\n")
-    end
+    return unless count_scan.length.zero?
 
+    @var_logs.record(last_end_file[:row], 'Need to add newline in the code')
+    @var_read_filecontent.modified_row_content(last_end_file[:row], last_end_file[:content].to_s + "\n")
   end
   attr_reader :var_action_name
 end

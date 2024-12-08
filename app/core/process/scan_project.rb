@@ -44,14 +44,14 @@ class ScanProject
       val_act.logs(@logs.init_record(val_act.var_action_name, file))
       val_act.read_filename(file)
       val_act.read_filecontent(read_f)
-      if @write && @logs.list_error.count.positive?
+      next unless @write && @logs.list_error.count.positive?
+
       #  puts file
       #  puts val_act.var_action_name
       #  puts "write"
-        write_f = WriteFile.new(file)
-        write_f.clear_file
-        write_f.write_content(read_f.raw_read)
-      end
+      write_f = WriteFile.new(file)
+      write_f.clear_file
+      write_f.write_content(read_f.raw_read)
     end
     @logs.print
   end
