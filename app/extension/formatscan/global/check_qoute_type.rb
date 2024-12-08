@@ -26,7 +26,7 @@ class CheckQouteType < CodeScanInterface
       line[:reference_key].each do |_ob_key, ob_val|
         count += 1 if ob_val[:type] != @var_default_config.to_s + '_qte_open_close'
       end
-      @var_logs.record(line[:row], 'Must use `' + @var_default_config.to_s + '` qoute in string') if count > 0
+      @var_logs.record(line[:row], 'Must use `' + @var_default_config.to_s + '` qoute in string') if count.positive?
     end
   end
 

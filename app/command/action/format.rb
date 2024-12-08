@@ -30,7 +30,7 @@ class FormatCommand < CommandInitiateInterface
     scan_project.write_file(true) if @command_list.index '--fix'
     scan_project.scan_file
 
-    return unless logs.count_error == 0
+    return unless logs.count_error.zero?
 
     puts 'No, error found'
   end

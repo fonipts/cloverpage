@@ -19,7 +19,7 @@ class SpacesInCodes < CodeScanInterface
   def read_filecontent(content)
     @var_read_filecontent = content
     @read_token = @var_read_filecontent.read_token
-    send(@ext_name) if @read_token.count > 0
+    send(@ext_name) if @read_token.count.positive?
   end
 
   def logs(cls)
@@ -49,7 +49,7 @@ class SpacesInCodes < CodeScanInterface
     reg_a = /(\[%:nwl%\]){1,}$/
     last_end_file = @read_token[@read_token.length - 1]
     count_scan = last_end_file[:content].scan(reg_a)
-    return unless count_scan.length.zero?
+    return unless count_scan.empty?
 
     @var_logs.record(last_end_file[:row], 'Need to add newline in the code')
     @var_read_filecontent.modified_row_content(last_end_file[:row], last_end_file[:content].to_s + "\n")

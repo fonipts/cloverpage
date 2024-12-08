@@ -1,17 +1,17 @@
 Documentation:
   Enabled: false
 Style/FrozenStringLiteralComment:
-  Enabled: false  
-Style/For:  
+  Enabled: false
+Style/For:
   Enabled: false
 Metrics/MethodLength:
   Max: 50
 Metrics/PerceivedComplexity:
-  Max: 20  
+  Max: 20
 Metrics/CyclomaticComplexity:
   Max: 20
 Layout/LineLength:
-  Max: 170  
+  Max: 170
 Lint/MissingSuper:
   Exclude:
-    - 'app/**/**/*'  
+    - 'app/**/**/*'

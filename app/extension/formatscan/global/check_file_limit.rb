@@ -19,7 +19,7 @@ class CheckFileLimit < CodeScanInterface
   def read_filecontent(content)
     @var_read_filecontent = content
     @read_token = @var_read_filecontent.read
-    send(@ext_name) if @read_token.count > 0
+    send(@ext_name) if @read_token.count.positive?
   end
 
   def logs(cls)
