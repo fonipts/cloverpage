@@ -39,9 +39,7 @@ class ReadFile
   def modified_row_content(row, content)
     counter = 0
     @list_content.each do |ob_key, _ob_val|
-      if ob_key[:row] == row
-        ob_key[:content] = content
-      end
+      ob_key[:content] = content if ob_key[:row] == row
       counter += 1
     end
   end
