@@ -1,5 +1,6 @@
 require_relative '../filesystem/scan_files_project'
 require_relative '../filesystem/read_file'
+require_relative '../filesystem/write_file'
 
 require_relative '../../config/supported_language'
 require 'fileutils'
@@ -38,10 +39,19 @@ class ScanProject
 
   def callback_read(file, _ext)
     read_f = ReadFile.new(file)
+    
     for val_act in @action_list
       val_act.logs(@logs.init_record(val_act.var_action_name, file))
       val_act.read_filename(file)
       val_act.read_filecontent(read_f)
+      if @write && @logs.list_error.count.positive?
+      #  puts file
+      #  puts val_act.var_action_name
+      #  puts "write"
+        write_f = WriteFile.new(file)
+        write_f.clear_file
+        write_f.write_content(read_f.raw_read)
+      end
     end
     @logs.print
   end

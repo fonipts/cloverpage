@@ -2,12 +2,12 @@ require_relative '../support/schema/token_char_struct'
 
 module TokenChar
   @token_list = [
-    TokenCharStruct.new('nwl', /\n/, '\n'),
+    TokenCharStruct.new('nwl', /\n/, "\n".to_s),
     TokenCharStruct.new('dbl_qte', /"/, '"'),
     TokenCharStruct.new('sng_qte', /'/, "'"),
     TokenCharStruct.new('bck_qte', /`/, '`'),
-    TokenCharStruct.new('spc', /\s/, "\s"),
-    TokenCharStruct.new('tb', /\t/, "\t")
+    TokenCharStruct.new('spc', /\s/, "\s".to_s),
+    TokenCharStruct.new('tb', /\t/, "\t".to_s)
   ]
 
   @token_qoute_list = [

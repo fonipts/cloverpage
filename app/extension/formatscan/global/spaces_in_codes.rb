@@ -35,12 +35,13 @@ class SpacesInCodes < CodeScanInterface
   end
 
   def meth_trail_space
-    reg_a = /(\[%:spc%\])\[%:nwl%\]$/
+    reg_a = /(\[%:spc%\])+\[%:nwl%\]$/
     for line in @read_token
       count_scan = line[:content].scan(reg_a)
-
-      @var_logs.record(line[:row], 'Extra trail space found') unless count_scan.to_a.empty?
-
+      if count_scan.length.positive?
+        @var_logs.record(line[:row], 'Extra trail space found')
+        @var_read_filecontent.modified_row_content(line[:row], line[:content].gsub(reg_a, "\n"))
+      end
     end
   end
   attr_reader :var_action_name

@@ -8,8 +8,8 @@ scans:
         disable: []
         config: []
      format:
-        #disable: 
-        # - qoute_type
+        disable: 
+         - qoute_type
         config:
         - row_char_limit : 150
         - qoute_type: single

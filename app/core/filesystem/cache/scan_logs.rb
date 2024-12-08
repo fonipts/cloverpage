@@ -12,14 +12,16 @@ class ScanLogs
 
   def init_record(name, file)
     @file = file
+    
     PrintLogs.new(@logs_path, name, file, @list_error)
   end
 
   def print
     puts "\n" + format('file: `%s` ', @file.to_s.sub(@dir, '.')).blue if @list_error.count.positive?
     puts "#{@list_error.join("\n")}".red if @list_error.count.positive?
-    @count_error += @list_error.count
+    @count_error += @list_error.clone.count
     @list_error = []
+    
   end
-  attr_reader :count_error
+  attr_reader :count_error,:list_error
 end

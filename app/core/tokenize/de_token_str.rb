@@ -1,26 +1,38 @@
 require_relative '../../config/token_char'
 require_relative '../../utility/crypt'
-class EnTokenStr
+class DeTokenStr
   def initialize(content)
     @content = content
   end
 
   def convert
-    raw_char = []
-
-    @content.split('') do |char|
-      is_update = false
-      TokenChar.token_list.each do |ob_key, _ob_val|
-        next unless is_update == false && char.match(ob_key.regex)
-
-        raw_char.append(('[%:' + ob_key.name.to_s + '%]'))
-
-        is_update = true
-      end
-      raw_char.append(char) if is_update == false
+    content = @content[:content].to_s
+  #  puts @content
+  #  puts ""
+    TokenChar.token_qoute_clean.each do |ob_key, _ob_val|
+   #   p ob_key
+   #   puts '[%:' + ob_key.name.to_s + '%]'
+   #   puts ob_key.value.to_s
+      content = content.gsub('[%:' + ob_key.name.to_s + '%]', ob_key.value.to_s)
     end
 
-    raw_char.join('')
+    TokenChar.token_list.each do |ob_key, _ob_val|
+        content = content.gsub('[%:' + ob_key.name.to_s + '%]', ob_key.value.to_s)
+    end
+
+    if @content.key?('reference_key'.to_sym)
+      @content[:reference_key].each do |ob_key, ob_val|
+
+       # puts ob_key
+        #puts ob_val.to_s
+       # puts "+++++++++++++++++++++++++++=="
+        content = content.gsub('[@@:' + ob_key.to_s + '@@%]', ob_val[:char].to_s)
+      end
+    end
+
+    #puts content
+   # puts "content"
+   content
   end
 
   def convert_strip_qoute

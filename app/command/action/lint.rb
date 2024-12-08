@@ -27,6 +27,7 @@ class LintCommand < CommandInitiateInterface
 
     scan_project = ScanProject.new(@proj_dir, @raw_data['language'], @raw_data['directory']['include'], @raw_data['directory']['exclude'],
                                    logs, ext_data)
+    scan_project.write_file(true) if @command_list.index '--fix'                               
     scan_project.scan_file
 
     return unless logs.count_error == 0
